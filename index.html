@@ -952,6 +952,12 @@ window.lbNav=(dir)=>{
     if(now-lastTap<300){scale=scale>1?1:2;img.style.transform=`scale(${scale})`;}
     lastTap=now;
   });
+  // マウスホイールで拡大縮小（PC用）
+  wrap.addEventListener('wheel',e=>{
+    e.preventDefault();
+    scale=Math.min(5,Math.max(1,scale-(e.deltaY>0?0.2:-0.2)));
+    img.style.transform=`scale(${scale})`;
+  },{passive:false});
 })();
 </script>
 </body>
