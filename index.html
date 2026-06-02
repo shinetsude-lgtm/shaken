@@ -57,7 +57,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
 .cat-customer{background:#e3f2fd;color:#1565c0;border:1px solid #90caf9}
 .cat-company{background:#fce4ec;color:#b71c1c;border:1px solid #f48fb1}
 .card-owner{font-size:13px;color:#444;margin-bottom:6px}
-.card-plate{font-size:20px;font-weight:900;color:#1a1a1a;letter-spacing:2px;margin-bottom:4px}
+.card-plate{font-size:20px;font-weight:900;color:#1a1a1a;letter-spacing:2px}
 .card-car{font-size:12px;color:#666;margin-bottom:8px}
 .card-bottom{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #f0f0f0;padding-top:8px;margin-top:4px}
 .card-exp{font-size:12px;color:#333;font-weight:600}
@@ -65,6 +65,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
 .card-exp.soon{color:#f57c00}
 .card-meta{font-size:10px;color:#aaa;text-align:right;line-height:1.7}
 .card-staff{font-size:11px;color:#2a86c8;margin-top:4px;font-weight:600}
+.card-info-row{display:flex;align-items:baseline;gap:6px;margin-bottom:3px}
+.card-info-label{font-size:10px;color:#888;font-weight:700;min-width:36px;letter-spacing:.3px}
+.card-info-val{font-size:13px;color:#1a1a1a;font-weight:500}
 
 /* ===== 詳細 ===== */
 .detail-screen{display:none;background:#c8cdd4;min-height:100vh}
@@ -183,6 +186,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
 <div id="loginScreen">
   <div class="login-screen">
     <div class="login-logo">
+      <img src="%E4%BC%9A%E7%A4%BE%E3%83%AD%E3%82%B4.png" alt="SHIN-ETSU.D" style="height:80px;object-fit:contain;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto">
       <div class="login-logo-text">車検証管理システム</div>
       <div class="login-sub">SHIN-ETSU DENSO</div>
     </div>
@@ -489,6 +493,22 @@ function expClass(str){
   if(diff<60)return'soon';
   return'';
 }
+function expDays(str){
+  if(!str)return'';
+  const m=str.match(/(?:令和|平成|昭和)\s*(\d+|元)\s*年\s*(\d+)\s*月\s*(\d+)\s*日/);
+  if(!m)return'';
+  const eraBase={'令和':2018,'平成':1988,'昭和':1925};
+  const eraM=str.match(/(令和|平成|昭和)/);
+  if(!eraM)return'';
+  const base=eraBase[eraM[1]];
+  const y=(m[1]==='元'?1:parseInt(m[1]))+base;
+  const d=new Date(y,parseInt(m[2])-1,parseInt(m[3]));
+  const diff=Math.ceil((d-new Date())/(1000*60*60*24));
+  if(diff<0)return`（期限切れ ${Math.abs(diff)}日超過）`;
+  if(diff===0)return'（本日期限）';
+  if(diff<60)return`（残り${diff}日）`;
+  return'';
+}
 
 async function loadVehicles(){
   const q=query(collection(db,'vehicles'),orderBy('updatedAt','desc'));
@@ -535,14 +555,14 @@ function renderList(){
     const catLabel=v.category==='company'?'社用車':'お客様';
     return `<div class="vehicle-card" onclick="openDetail('${v.id}')">
       <div class="card-top">
-        <div>${v.clientName?`<div class="card-client">${v.clientName}</div>`:''}
-        <div class="card-owner">${v.ownerName||'—'}</div></div>
+        <div class="card-plate">${v.plate||'—'}</div>
         <span class="card-category ${catClass}">${catLabel}</span>
       </div>
-      <div class="card-plate">${v.plate||'—'}</div>
+      <div class="card-info-row"><span class="card-info-label">依頼者</span><span class="card-info-val">${v.clientName||'—'}</span></div>
+      <div class="card-info-row"><span class="card-info-label">所有者</span><span class="card-info-val">${v.ownerName||'—'}</span></div>
       <div class="card-car">${v.carName||'—'}</div>
       <div class="card-bottom">
-        <div><div class="card-exp ${ec}">車検: ${v.expDate||'—'}</div>${v.staff?`<div class="card-staff">担当: ${v.staff}</div>`:''}</div>
+        <div><div class="card-exp ${ec}">車検: ${v.expDate||'—'} ${expDays(v.expDate)}</div>${v.staff?`<div class="card-staff">担当: ${v.staff}</div>`:''}</div>
         <div class="card-meta">登録: ${toDateStr(v.createdAt)}<br>更新: ${toDateStr(v.updatedAt)}</div>
       </div>
     </div>`;
@@ -563,7 +583,8 @@ window.openDetail=async(id)=>{
   document.getElementById('d-chassis').textContent=v.chassis||'—';
   document.getElementById('d-owner').textContent=v.ownerName||'—';
   document.getElementById('d-addr').textContent=v.address||'—';
-  document.getElementById('d-exp').textContent=v.expDate||'—';
+  const expD=expDays(v.expDate);
+  document.getElementById('d-exp').textContent=(v.expDate||'—')+(expD?' '+expD:'');
   document.getElementById('d-firstreg').textContent=v.firstReg||'—';
   document.getElementById('d-regdate').textContent=v.regDate||'—';
   document.getElementById('d-staff').textContent=v.staff||'—';
