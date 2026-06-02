@@ -4,176 +4,194 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>車検証管理 — 信越電装</title>
-<meta name="theme-color" content="#1D9E75">
+<meta name="theme-color" content="#2a86c8">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI',sans-serif;background:#f0f2f5;color:#222;font-size:15px}
-.app{max-width:680px;margin:0 auto;min-height:100vh;background:#fff}
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI',sans-serif;background:#c8cdd4;color:#1a1a1a;font-size:15px}
+.app{max-width:680px;margin:0 auto;min-height:100vh;background:#c8cdd4}
 
 /* ===== ログイン ===== */
-.login-screen{max-width:400px;margin:0 auto;padding:60px 24px 32px}
-.login-logo{text-align:center;margin-bottom:32px}
-.login-logo-text{font-size:24px;font-weight:800;color:#1D9E75}
-.login-sub{font-size:13px;color:#888;margin-top:4px}
-.login-card{background:#fff;border-radius:16px;padding:28px 24px;box-shadow:0 2px 16px rgba(0,0,0,.08)}
-.login-label{font-size:12px;color:#555;margin-bottom:4px;display:block;font-weight:600}
-.login-input{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin-bottom:14px;outline:none}
-.login-input:focus{border-color:#1D9E75}
-.login-btn{width:100%;padding:12px;background:#1D9E75;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer}
-.login-error{color:#e53935;font-size:13px;margin-top:8px;text-align:center}
+.login-screen{max-width:400px;margin:0 auto;padding:80px 24px 32px}
+.login-logo{text-align:center;margin-bottom:40px}
+.login-logo-text{font-size:22px;font-weight:800;color:#2a86c8;letter-spacing:2px}
+.login-sub{font-size:12px;color:#aaa;margin-top:6px;letter-spacing:1px}
+.login-card{background:#fff;border:1px solid #ddd;padding:32px 24px}
+.login-label{font-size:11px;color:#555;margin-bottom:6px;display:block;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.login-input{width:100%;padding:10px 12px;background:#f8f8f8;border:1px solid #ddd;color:#1a1a1a;font-size:14px;margin-bottom:16px;outline:none;transition:border-color .2s}
+.login-input:focus{border-color:#2a86c8;background:#fff}
+.login-btn{width:100%;padding:12px;background:#2a86c8;color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:background .2s}
+.login-btn:hover{background:#1a6ea8}
+.login-error{color:#e53935;font-size:12px;margin-top:8px;text-align:center}
 
 /* ===== ヘッダー ===== */
-.header{background:#1D9E75;color:#fff;padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100}
-.header-title{font-size:17px;font-weight:700;letter-spacing:.3px}
-.header-user{font-size:12px;opacity:.85;display:flex;align-items:center;gap:8px}
-.logout-btn{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:11px;padding:4px 10px;border-radius:20px;cursor:pointer}
-.subbar{background:#2db88a;color:#fff;font-size:12px;padding:6px 16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:28px}
+.header{background:#fff;border-bottom:3px solid #2a86c8;padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.header-title{font-size:15px;font-weight:800;color:#2a86c8;letter-spacing:2px}
+.header-user{font-size:12px;color:#555;display:flex;align-items:center;gap:8px}
+.logout-btn{background:#2a86c8;border:none;color:#fff;font-size:11px;padding:5px 12px;cursor:pointer;font-weight:700;transition:background .2s}
+.logout-btn:hover{background:#1a6ea8}
+.subbar{background:#2a86c8;color:#fff;font-size:11px;padding:5px 16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ===== 一覧 ===== */
-.list-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid #f0f0f0}
-.search-box{flex:1;padding:8px 12px;border:1px solid #ddd;border-radius:20px;font-size:14px;outline:none}
-.search-box:focus{border-color:#1D9E75}
-.add-btn{background:#1D9E75;color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
-.vehicle-list{padding:12px 16px;display:flex;flex-direction:column;gap:10px}
-.empty-state{text-align:center;padding:60px 24px;color:#aaa}
-.empty-icon{font-size:48px;margin-bottom:12px}
-.empty-text{font-size:15px}
+.list-header{padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #ddd;background:#fff}
+.search-box{flex:1;padding:8px 12px;background:#f8f8f8;border:1px solid #ddd;color:#1a1a1a;font-size:13px;outline:none;transition:border-color .2s}
+.search-box:focus{border-color:#2a86c8;background:#fff}
+.search-box::placeholder{color:#aaa}
+.add-btn{background:#2a86c8;color:#fff;border:none;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .2s}
+.add-btn:hover{background:#1a6ea8}
+
+/* フィルターバー */
+.filter-bar{padding:8px 16px;display:flex;gap:6px;overflow-x:auto;background:#fff;border-bottom:1px solid #ddd}
+.filter-btn{padding:4px 14px;border:2px solid #ddd;background:#fff;color:#555;font-size:11px;cursor:pointer;white-space:nowrap;transition:all .2s;font-weight:600}
+.filter-btn:hover{border-color:#2a86c8;color:#2a86c8}
+.filter-btn.active{border-color:#2a86c8;background:#2a86c8;color:#fff}
+
+.vehicle-list{padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.empty-state{text-align:center;padding:60px 24px;color:#aaa;font-size:14px}
 
 /* ===== カード ===== */
-.vehicle-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s}
-.vehicle-card:active{box-shadow:0 2px 12px rgba(0,0,0,.1)}
-.card-owner-name{font-size:16px;font-weight:500;color:#222;margin-bottom:2px}
-.card-last-karte{font-size:12px;color:#999;margin-bottom:8px}
-.card-plate{font-size:18px;font-weight:800;color:#1D9E75;margin-bottom:4px;letter-spacing:.5px}
-.card-car{font-size:13px;color:#555;margin-bottom:6px}
-.card-bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:8px}
-.card-exp{font-size:13px;color:#333;font-weight:600}
+.vehicle-card{background:#fff;border:1px solid #ddd;border-left:4px solid #2a86c8;padding:14px 16px;cursor:pointer;transition:all .15s}
+.vehicle-card:hover{box-shadow:0 3px 10px rgba(0,0,0,.2);border-left-color:#1a6ea8}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px}
+.card-client{font-size:12px;color:#2a86c8;font-weight:700;letter-spacing:.5px}
+.card-category{font-size:10px;padding:2px 8px;font-weight:700}
+.cat-customer{background:#e3f2fd;color:#1565c0;border:1px solid #90caf9}
+.cat-company{background:#fce4ec;color:#b71c1c;border:1px solid #f48fb1}
+.card-owner{font-size:13px;color:#444;margin-bottom:6px}
+.card-plate{font-size:20px;font-weight:900;color:#1a1a1a;letter-spacing:2px;margin-bottom:4px}
+.card-car{font-size:12px;color:#666;margin-bottom:8px}
+.card-bottom{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid #f0f0f0;padding-top:8px;margin-top:4px}
+.card-exp{font-size:12px;color:#333;font-weight:600}
 .card-exp.expired{color:#e53935}
 .card-exp.soon{color:#f57c00}
-.card-meta{font-size:11px;color:#bbb;text-align:right;line-height:1.6}
-.card-staff-badge{display:inline-block;margin-top:6px;background:#e8f5e9;color:#1D9E75;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid #c8e6c9}
-.category-badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px}
-.badge-customer{background:#e3f2fd;color:#1565c0}
-.badge-company{background:#fce4ec;color:#880e4f}
+.card-meta{font-size:10px;color:#aaa;text-align:right;line-height:1.7}
+.card-staff{font-size:11px;color:#2a86c8;margin-top:4px;font-weight:600}
 
-/* ===== 詳細画面 ===== */
-.detail-screen{display:none;background:#fff;min-height:100vh}
-.detail-header{background:#1D9E75;color:#fff;padding:0 16px;height:52px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
-.back-btn{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px}
-.detail-title{font-size:16px;font-weight:700;flex:1}
+/* ===== 詳細 ===== */
+.detail-screen{display:none;background:#c8cdd4;min-height:100vh}
+.detail-header{background:#fff;border-bottom:3px solid #2a86c8;padding:0 16px;height:52px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.back-btn{background:none;border:none;color:#2a86c8;font-size:20px;cursor:pointer;padding:4px;font-weight:700}
+.detail-title{font-size:14px;font-weight:800;flex:1;color:#2a86c8;letter-spacing:1px}
 .detail-body{padding:16px}
-.detail-plate{font-size:28px;font-weight:900;color:#1D9E75;letter-spacing:1px;margin-bottom:4px}
-.detail-car{font-size:16px;color:#555;margin-bottom:16px}
-.info-section{background:#f8f9fa;border-radius:12px;padding:14px 16px;margin-bottom:16px}
-.info-section-title{font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
-.info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;border-bottom:1px solid #eee}
+.detail-plate{font-size:28px;font-weight:900;color:#1a1a1a;letter-spacing:3px;margin-bottom:2px}
+.detail-car{font-size:14px;color:#555;margin-bottom:4px}
+.detail-client{font-size:12px;color:#2a86c8;font-weight:700;margin-bottom:16px}
+
+/* 車検証画像 */
+.shaken-files-section{margin-bottom:12px;background:#fff;border:1px solid #ddd;border-top:3px solid #2a86c8;padding:14px}
+.section-title{font-size:10px;font-weight:800;color:#2a86c8;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.shaken-files-list{display:flex;flex-wrap:wrap;gap:8px}
+.shaken-file-wrap{position:relative}
+.shaken-thumb{width:90px;height:90px;object-fit:cover;cursor:pointer;border:1px solid #ddd;transition:all .2s}
+.shaken-thumb:hover{border-color:#2a86c8;box-shadow:0 0 0 2px #90caf9}
+.shaken-pdf-thumb{width:90px;height:90px;background:#e3f2fd;border:1px solid #90caf9;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:#2a86c8;cursor:pointer;text-decoration:none;gap:4px;font-weight:700}
+.shaken-file-del{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:#e53935;color:#fff;border:none;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700}
+
+.action-btns{display:flex;gap:8px;margin-bottom:12px}
+.edit-btn{flex:1;padding:10px;background:#2a86c8;color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
+.edit-btn:hover{background:#1a6ea8}
+.delete-btn{padding:10px 16px;background:#fff;color:#e53935;border:2px solid #e53935;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.delete-btn:hover{background:#e53935;color:#fff}
+
+.info-section{background:#fff;border:1px solid #ddd;border-top:3px solid #2a86c8;padding:14px 16px;margin-bottom:12px}
+.info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid #f5f5f5}
 .info-row:last-child{border-bottom:none}
-.info-key{font-size:13px;color:#888;flex-shrink:0;width:120px}
-.info-val{font-size:14px;color:#222;font-weight:500;text-align:right;word-break:break-all}
-.action-btns{display:flex;gap:10px;margin-bottom:20px}
-.edit-btn{flex:1;padding:11px;background:#1D9E75;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
-.delete-btn{padding:11px 18px;background:#fff;color:#e53935;border:1px solid #e53935;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.info-key{font-size:11px;color:#888;font-weight:700;flex-shrink:0;width:110px}
+.info-val{font-size:13px;color:#1a1a1a;font-weight:500;text-align:right;word-break:break-all}
 
 /* ===== 整備記録 ===== */
 .karte-section{margin-bottom:24px}
-.karte-title{font-size:14px;font-weight:700;color:#333;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.karte-add-btn{background:#1D9E75;color:#fff;border:none;border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer}
-.karte-empty{text-align:center;color:#bbb;font-size:13px;padding:20px 0}
-.karte-entry{background:#f8f9fa;border-radius:10px;padding:12px 14px;margin-bottom:10px;position:relative}
+.karte-add-btn{background:#2a86c8;border:none;color:#fff;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:background .2s}
+.karte-add-btn:hover{background:#1a6ea8}
+.karte-empty{text-align:center;color:#aaa;font-size:13px;padding:20px 0}
+.karte-entry{background:#fff;border:1px solid #ddd;border-left:3px solid #2a86c8;padding:12px 14px;margin-bottom:8px}
 .karte-entry-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.karte-date{font-size:12px;color:#888}
-.karte-staff{font-size:12px;font-weight:600;color:#1D9E75}
+.karte-date{font-size:11px;color:#2a86c8;font-weight:700}
+.karte-staff-name{font-size:11px;color:#555;font-weight:600}
 .karte-entry-actions{display:flex;gap:6px}
-.karte-edit-btn{background:none;border:1px solid #1D9E75;color:#1D9E75;border-radius:6px;padding:2px 8px;font-size:11px;cursor:pointer}
-.karte-del-btn{background:none;border:none;color:#ccc;font-size:16px;cursor:pointer;padding:0 4px}
-.karte-memo{font-size:13px;color:#444;line-height:1.6;margin-bottom:8px;white-space:pre-wrap}
+.karte-edit-btn{background:#2a86c8;border:none;color:#fff;padding:3px 10px;font-size:10px;cursor:pointer;font-weight:700;transition:background .2s}
+.karte-edit-btn:hover{background:#1a6ea8}
+.karte-del-btn{background:#fff;border:1px solid #ddd;color:#aaa;font-size:12px;cursor:pointer;padding:2px 8px;transition:all .2s}
+.karte-del-btn:hover{border-color:#e53935;color:#e53935}
+.karte-memo{font-size:13px;color:#333;line-height:1.7;margin-bottom:8px;white-space:pre-wrap}
 .karte-files{display:flex;flex-wrap:wrap;gap:8px}
-.karte-file-wrap{position:relative;display:inline-block}
-.karte-thumb{width:72px;height:72px;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid #eee}
-.karte-pdf-thumb{width:72px;height:72px;background:#fff3e0;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:#f57c00;cursor:pointer;border:1px solid #ffe0b2;text-decoration:none;gap:4px}
-.karte-file-del{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:#e53935;color:#fff;border:none;border-radius:50%;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
-
-/* 車検証ファイル表示 */
-.shaken-files-section{margin-bottom:16px}
-.shaken-files-title{font-size:13px;font-weight:700;color:#888;margin-bottom:8px}
-.shaken-files-list{display:flex;flex-wrap:wrap;gap:8px}
-.shaken-file-wrap{position:relative;display:inline-block}
-.shaken-thumb{width:80px;height:80px;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid #eee}
-.shaken-pdf-thumb{width:80px;height:80px;background:#e8f5e9;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:#1D9E75;cursor:pointer;border:1px solid #c8e6c9;text-decoration:none;gap:4px}
-.shaken-file-del{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#e53935;color:#fff;border:none;border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.karte-file-wrap{position:relative}
+.karte-thumb{width:72px;height:72px;object-fit:cover;cursor:pointer;border:1px solid #ddd;transition:all .2s}
+.karte-thumb:hover{border-color:#2a86c8}
+.karte-pdf-thumb{width:72px;height:72px;background:#e3f2fd;border:1px solid #90caf9;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:#2a86c8;cursor:pointer;text-decoration:none;gap:4px;font-weight:700}
+.karte-file-del{position:absolute;top:-6px;right:-6px;width:16px;height:16px;background:#e53935;color:#fff;border:none;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700}
 
 /* ===== モーダル ===== */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;overflow-y:auto;padding:20px 0}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;overflow-y:auto;padding:20px 0}
 .modal-overlay.open{display:block}
-.modal{background:#fff;border-radius:16px;max-width:560px;margin:0 auto;padding:20px 16px}
-.modal-title{font-size:17px;font-weight:700;margin-bottom:16px;color:#222}
-.ocr-section{background:#f0faf5;border-radius:12px;padding:14px;margin-bottom:16px;border:1px solid #c8e6c9}
-.ocr-section-title{font-size:13px;font-weight:700;color:#1D9E75;margin-bottom:10px}
+.modal{background:#fff;border-top:4px solid #2a86c8;max-width:560px;margin:0 auto;padding:20px 16px}
+.modal-title{font-size:14px;font-weight:800;margin-bottom:16px;color:#2a86c8;letter-spacing:1px;text-transform:uppercase}
+.ocr-section{background:#e3f2fd;border:1px solid #90caf9;padding:14px;margin-bottom:12px}
+.ocr-section-title{font-size:11px;font-weight:800;color:#1565c0;margin-bottom:10px;letter-spacing:1px;text-transform:uppercase}
 .upload-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.upload-area{border:2px dashed #b2dfdb;border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;position:relative;background:#fff;transition:border-color .15s}
-.upload-area:hover{border-color:#1D9E75}
+.upload-area{border:2px dashed #90caf9;padding:14px 10px;text-align:center;cursor:pointer;position:relative;background:#fff;transition:all .2s}
+.upload-area:hover{border-color:#2a86c8;background:#e3f2fd}
 .upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.upload-icon{font-size:24px;margin-bottom:4px}
-.upload-label{font-size:12px;font-weight:700;color:#444;margin-bottom:2px}
-.upload-hint{font-size:11px;color:#888}
-.upload-preview{max-width:100%;max-height:80px;margin-top:8px;border-radius:6px;display:none}
-.ocr-btn{width:100%;padding:10px;background:#1D9E75;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:6px}
-.ocr-btn:disabled{background:#aaa;cursor:not-allowed}
-.ocr-status{font-size:12px;color:#666;text-align:center}
-.qr-btn-row{margin-bottom:10px}
-.qr-trigger-btn{width:100%;padding:9px;background:#fff;border:1px solid #1D9E75;color:#1D9E75;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+.upload-icon{font-size:22px;margin-bottom:4px}
+.upload-label{font-size:11px;font-weight:700;color:#444;margin-bottom:2px}
+.upload-hint{font-size:10px;color:#888}
+.upload-preview{max-width:100%;max-height:80px;margin-top:8px;display:none;border:1px solid #ddd}
+.ocr-btn{width:100%;padding:10px;background:#2a86c8;color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;transition:background .2s}
+.ocr-btn:hover{background:#1a6ea8}
+.ocr-btn:disabled{background:#ccc;color:#fff;cursor:not-allowed}
+.ocr-status{font-size:11px;color:#666;text-align:center}
+.qr-trigger-btn{width:100%;padding:9px;background:#fff;border:2px solid #2a86c8;color:#2a86c8;font-size:12px;font-weight:700;cursor:pointer;margin-bottom:12px;transition:all .2s}
+.qr-trigger-btn:hover{background:#2a86c8;color:#fff}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .form-field{display:flex;flex-direction:column}
-.form-label{font-size:12px;color:#555;margin-bottom:4px;font-weight:600}
-.form-input{padding:9px 10px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none}
-.form-input:focus{border-color:#1D9E75}
-.form-select{padding:9px 10px;border:1px solid #ddd;border-radius:8px;font-size:14px;background:#fff;outline:none}
 .form-field.full{grid-column:1/-1}
-.modal-actions{display:flex;gap:10px;margin-top:16px}
-.modal-cancel{flex:1;padding:11px;background:#fff;border:1px solid #ddd;border-radius:10px;font-size:14px;cursor:pointer}
-.modal-save{flex:2;padding:11px;background:#1D9E75;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.form-label{font-size:10px;color:#888;margin-bottom:4px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.form-input{padding:9px 10px;background:#f8f8f8;border:1px solid #ddd;color:#1a1a1a;font-size:13px;outline:none;transition:border-color .2s}
+.form-input:focus{border-color:#2a86c8;background:#fff}
+.form-select{padding:9px 10px;background:#f8f8f8;border:1px solid #ddd;color:#1a1a1a;font-size:13px;outline:none}
+.modal-actions{display:flex;gap:8px;margin-top:16px}
+.modal-cancel{flex:1;padding:10px;background:#fff;border:2px solid #ddd;color:#555;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.modal-cancel:hover{border-color:#888;color:#333}
+.modal-save{flex:2;padding:10px;background:#2a86c8;color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
+.modal-save:hover{background:#1a6ea8}
 
 /* 整備記録モーダル */
-.karte-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;overflow-y:auto;padding:20px 0}
+.karte-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;overflow-y:auto;padding:20px 0}
 .karte-modal-overlay.open{display:block}
-.karte-modal{background:#fff;border-radius:16px;max-width:480px;margin:0 auto;padding:20px 16px}
-.karte-file-list{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px}
-.karte-file-preview{width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #eee}
+.karte-modal{background:#fff;border-top:4px solid #2a86c8;max-width:480px;margin:0 auto;padding:20px 16px}
+.karte-file-preview{width:60px;height:60px;object-fit:cover;border:1px solid #ddd}
 
 /* ライトボックス */
-.lightbox-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;align-items:center;justify-content:center}
+.lightbox-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;align-items:center;justify-content:center}
 .lightbox-wrap.open{display:flex}
-.lightbox-img{max-width:95vw;max-height:90vh;border-radius:8px;object-fit:contain}
-.lightbox-close{position:fixed;top:16px;right:16px;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:24px;width:40px;height:40px;border-radius:50%;cursor:pointer}
-.lightbox-prev,.lightbox-next{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;color:#fff;font-size:24px;width:44px;height:44px;border-radius:50%;cursor:pointer}
+.lightbox-img{max-width:95vw;max-height:90vh;object-fit:contain}
+.lightbox-close{position:fixed;top:16px;right:16px;background:#2a86c8;border:none;color:#fff;font-size:18px;width:36px;height:36px;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center}
+.lightbox-prev,.lightbox-next{position:fixed;top:50%;transform:translateY(-50%);background:#2a86c8;border:none;color:#fff;font-size:22px;width:40px;height:40px;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center}
 .lightbox-prev{left:8px}.lightbox-next{right:8px}
 
 /* QR */
-.qr-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:400;flex-direction:column;align-items:center;justify-content:center}
+.qr-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:400;flex-direction:column;align-items:center;justify-content:center}
 .qr-overlay.open{display:flex}
-.qr-video-wrap{position:relative;width:260px;height:260px;margin-bottom:16px}
-#qrVideo{width:260px;height:260px;object-fit:cover;border-radius:12px}
-.qr-guide{position:absolute;inset:0;pointer-events:none}
-.qr-msg{color:#fff;font-size:14px;margin-bottom:16px;text-align:center}
-.qr-close-btn{background:#fff;color:#222;border:none;border-radius:20px;padding:10px 28px;font-size:14px;font-weight:700;cursor:pointer}
+#qrVideo{width:260px;height:260px;object-fit:cover;border:2px solid #2a86c8}
+.qr-msg{color:#fff;font-size:13px;margin:16px 0}
+.qr-close-btn{background:#2a86c8;border:none;color:#fff;padding:10px 28px;font-size:13px;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- ログイン画面 -->
+<!-- ログイン -->
 <div id="loginScreen">
   <div class="login-screen">
     <div class="login-logo">
-      <div class="login-logo-text">🚗 車検証管理</div>
-      <div class="login-sub">信越電装</div>
+      <div class="login-logo-text">車検証管理システム</div>
+      <div class="login-sub">SHIN-ETSU DENSO</div>
     </div>
     <div class="login-card">
-      <label class="login-label">メールアドレス</label>
+      <label class="login-label">Email</label>
       <input class="login-input" type="email" id="loginEmail" placeholder="example@email.com">
-      <label class="login-label">パスワード</label>
-      <input class="login-input" type="password" id="loginPass" placeholder="パスワード" onkeydown="if(event.key==='Enter')doLogin()">
-      <button class="login-btn" onclick="doLogin()">ログイン</button>
+      <label class="login-label">Password</label>
+      <input class="login-input" type="password" id="loginPass" onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="login-btn" onclick="doLogin()">LOGIN</button>
       <div class="login-error" id="loginError"></div>
     </div>
   </div>
@@ -182,16 +200,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
 <!-- メインアプリ -->
 <div id="mainApp" style="display:none">
   <div class="header">
-    <div class="header-title">🚗 車検証管理</div>
+    <div class="header-title">車検証管理</div>
     <div class="header-user">
       <span id="headerUserName"></span>
-      <button class="logout-btn" onclick="doLogout()">ログアウト</button>
+      <button class="logout-btn" onclick="doLogout()">LOGOUT</button>
     </div>
   </div>
   <div class="subbar" id="subbar" style="display:none"></div>
   <div class="list-header">
-    <input class="search-box" id="searchBox" placeholder="🔍 ナンバー・氏名・担当者で検索" oninput="renderList()">
+    <input class="search-box" id="searchBox" placeholder="ナンバー・所有者・依頼者・担当者で検索" oninput="renderList()">
     <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
+  </div>
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" onclick="setFilter('all',this)">すべて</button>
+    <button class="filter-btn" onclick="setFilter('customer',this)">お客様車両</button>
+    <button class="filter-btn" onclick="setFilter('company',this)">社用車</button>
   </div>
   <div class="vehicle-list" id="vehicleList"></div>
 </div>
@@ -201,54 +224,53 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
   <div class="detail-header">
     <button class="back-btn" onclick="closeDetail()">←</button>
     <div class="detail-title" id="detailTitle">詳細</div>
-    <div></div>
   </div>
   <div class="detail-body">
-    <div style="display:flex;align-items:center;margin-bottom:4px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
       <div class="detail-plate" id="d-plate">—</div>
-      <span id="d-category-badge" class="category-badge" style="margin-left:10px"></span>
+      <span id="d-category-badge" class="card-category"></span>
     </div>
     <div class="detail-car" id="d-car">—</div>
+    <div class="detail-client" id="d-client-header"></div>
 
-    <!-- 車検証添付ファイル表示 -->
     <div class="shaken-files-section" id="shakenFilesSection" style="display:none">
-      <div class="shaken-files-title">📎 車検証ファイル</div>
+      <div class="section-title">📎 車検証ファイル</div>
       <div class="shaken-files-list" id="shakenFilesList"></div>
     </div>
 
     <div class="action-btns">
       <button class="edit-btn" onclick="openEditModal()">✏️ 編集</button>
-      <button class="delete-btn" onclick="deleteVehicle()">🗑️ 削除</button>
+      <button class="delete-btn" onclick="deleteVehicle()">削除</button>
     </div>
 
     <div class="info-section">
-      <div class="info-section-title">車両情報</div>
+      <div class="section-title">車両情報</div>
       <div class="info-row"><div class="info-key">登録番号</div><div class="info-val" id="d-plate2">—</div></div>
       <div class="info-row"><div class="info-key">車名</div><div class="info-val" id="d-carname">—</div></div>
       <div class="info-row"><div class="info-key">型式</div><div class="info-val" id="d-model">—</div></div>
       <div class="info-row"><div class="info-key">車体の形状</div><div class="info-val" id="d-shape">—</div></div>
       <div class="info-row"><div class="info-key">車台番号</div><div class="info-val" id="d-chassis">—</div></div>
-    </div>
-    <div class="info-section">
-      <div class="info-section-title">所有者・期限</div>
-      <div class="info-row"><div class="info-key">所有者名</div><div class="info-val" id="d-owner">—</div></div>
-      <div class="info-row"><div class="info-key">住所</div><div class="info-val" id="d-addr">—</div></div>
-      <div class="info-row"><div class="info-key">車検有効期限</div><div class="info-val" id="d-exp">—</div></div>
       <div class="info-row"><div class="info-key">初年度登録</div><div class="info-val" id="d-firstreg">—</div></div>
       <div class="info-row"><div class="info-key">登録年月日</div><div class="info-val" id="d-regdate">—</div></div>
+      <div class="info-row"><div class="info-key">車検有効期限</div><div class="info-val" id="d-exp">—</div></div>
     </div>
     <div class="info-section">
-      <div class="info-section-title">管理情報</div>
+      <div class="section-title">所有者・依頼者</div>
+      <div class="info-row"><div class="info-key">所有者名</div><div class="info-val" id="d-owner">—</div></div>
+      <div class="info-row"><div class="info-key">住所</div><div class="info-val" id="d-addr">—</div></div>
+      <div class="info-row"><div class="info-key">依頼者（請求先）</div><div class="info-val" id="d-client">—</div></div>
+    </div>
+    <div class="info-section">
+      <div class="section-title">管理情報</div>
       <div class="info-row"><div class="info-key">担当者</div><div class="info-val" id="d-staff">—</div></div>
       <div class="info-row"><div class="info-key">備考</div><div class="info-val" id="d-note">—</div></div>
       <div class="info-row"><div class="info-key">登録日</div><div class="info-val" id="d-created">—</div></div>
       <div class="info-row"><div class="info-key">更新日</div><div class="info-val" id="d-updated">—</div></div>
     </div>
 
-    <!-- 整備記録 -->
     <div class="karte-section">
-      <div class="karte-title">
-        🔧 整備記録
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div class="section-title" style="margin:0">🔧 整備記録</div>
         <button class="karte-add-btn" onclick="openKarteModal()">＋ 記録を追加</button>
       </div>
       <div id="karteList"></div>
@@ -259,31 +281,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
 <!-- 車両登録/編集モーダル -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <div class="modal-title" id="modalTitle">🚗 車検証を登録</div>
+    <div class="modal-title" id="modalTitle">新規登録</div>
     <div class="ocr-section">
-      <div class="ocr-section-title">📷 OCR自動読み取り（任意）</div>
+      <div class="ocr-section-title">📷 OCR自動読み取り</div>
       <div class="upload-pair">
         <div class="upload-area">
           <input type="file" id="ocrFile1" accept="image/*,application/pdf" onchange="onFileSelect(1)">
           <div class="upload-icon">📄</div>
           <div class="upload-label">① 自動車検査証</div>
-          <div class="upload-hint">ナンバー・車名・期限など</div>
+          <div class="upload-hint">表面</div>
           <img class="upload-preview" id="preview1">
         </div>
         <div class="upload-area">
           <input type="file" id="ocrFile2" accept="image/*,application/pdf" onchange="onFileSelect(2)">
           <div class="upload-icon">📋</div>
-          <div class="upload-label">② 検査証記録事項</div>
-          <div class="upload-hint">型式・車台番号・初年度など</div>
+          <div class="upload-label">② 記録事項</div>
+          <div class="upload-hint">裏面</div>
           <img class="upload-preview" id="preview2">
         </div>
       </div>
-      <button class="ocr-btn" id="ocrBtn" onclick="runOCR()" disabled>🔍 OCR読み取り開始</button>
-      <div class="ocr-status" id="ocrStatus">画像またはPDFを選択してください</div>
+      <button class="ocr-btn" id="ocrBtn" onclick="runOCR()" disabled>OCR 読み取り開始</button>
+      <div class="ocr-status" id="ocrStatus">画像を選択してください</div>
     </div>
-    <div class="qr-btn-row">
-      <button class="qr-trigger-btn" onclick="openQR()">📷 車検証QRコードを読み取る</button>
-    </div>
+    <button class="qr-trigger-btn" onclick="openQR()">📷 QRコードを読み取る</button>
     <div class="form-grid">
       <div class="form-field full">
         <label class="form-label">区分</label>
@@ -291,6 +311,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
           <option value="customer">お客様車両</option>
           <option value="company">社用車</option>
         </select>
+      </div>
+      <div class="form-field full">
+        <label class="form-label">依頼者（請求先）</label>
+        <input class="form-input" id="f-client" placeholder="サンライズ、山中運送など">
       </div>
       <div class="form-field">
         <label class="form-label">登録番号（ナンバー）*</label>
@@ -317,33 +341,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
         <input class="form-input" id="f-owner" placeholder="株式会社 信越電装">
       </div>
       <div class="form-field">
-        <label class="form-label">車検有効期限</label>
-        <input class="form-input" type="date" id="f-exp">
-      </div>
-      <div class="form-field">
-        <label class="form-label">初年度登録年月</label>
-        <input class="form-input" type="month" id="f-firstreg">
+        <label class="form-label">初年度登録</label>
+        <input class="form-input" id="f-firstreg" placeholder="令和6年1月">
       </div>
       <div class="form-field">
         <label class="form-label">登録年月日</label>
-        <input class="form-input" type="date" id="f-regdate">
+        <input class="form-input" id="f-regdate" placeholder="令和6年1月15日">
       </div>
-      <div class="form-field">
-        <label class="form-label">担当者名</label>
-        <input class="form-input" id="f-staff" placeholder="自動入力">
+      <div class="form-field full">
+        <label class="form-label">車検有効期限</label>
+        <input class="form-input" id="f-exp" placeholder="令和10年1月27日">
       </div>
       <div class="form-field full">
         <label class="form-label">住所</label>
         <input class="form-input" id="f-addr" placeholder="東京都大田区…">
       </div>
-      <div class="form-field full">
+      <div class="form-field">
+        <label class="form-label">担当者名</label>
+        <input class="form-input" id="f-staff">
+      </div>
+      <div class="form-field">
         <label class="form-label">備考</label>
         <input class="form-input" id="f-note" placeholder="メモ">
       </div>
     </div>
     <div class="modal-actions">
       <button class="modal-cancel" onclick="closeModal()">キャンセル</button>
-      <button class="modal-save" id="saveBtn" onclick="saveVehicle()">💾 保存</button>
+      <button class="modal-save" id="saveBtn" onclick="saveVehicle()">保存</button>
     </div>
   </div>
 </div>
@@ -351,24 +375,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
 <!-- 整備記録モーダル -->
 <div class="karte-modal-overlay" id="karteModalOverlay">
   <div class="karte-modal">
-    <div class="modal-title" id="karteModalTitle">🔧 整備記録を追加</div>
+    <div class="modal-title" id="karteModalTitle">整備記録を追加</div>
     <input type="hidden" id="karteEditIndex" value="">
     <div class="form-field" style="margin-bottom:12px">
       <label class="form-label">担当者名</label>
-      <input class="form-input" id="km-staff" placeholder="担当者名">
+      <input class="form-input" id="km-staff">
     </div>
     <div class="form-field" style="margin-bottom:12px">
       <label class="form-label">整備内容・メモ</label>
-      <textarea class="form-input" id="km-memo" rows="4" placeholder="整備内容を入力…" style="resize:vertical"></textarea>
+      <textarea class="form-input" id="km-memo" rows="4" style="resize:vertical"></textarea>
     </div>
     <div class="form-field" style="margin-bottom:12px">
       <label class="form-label">写真・PDF（複数可）</label>
-      <input type="file" id="km-files" accept="image/*,application/pdf" multiple style="font-size:14px">
-      <div class="karte-file-list" id="kmFilePreview"></div>
+      <input type="file" id="km-files" accept="image/*,application/pdf" multiple style="font-size:13px;color:#64748b">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px" id="kmFilePreview"></div>
     </div>
     <div class="modal-actions">
       <button class="modal-cancel" onclick="closeKarteModal()">キャンセル</button>
-      <button class="modal-save" id="karteSaveBtn" onclick="saveKarte()">💾 保存</button>
+      <button class="modal-save" id="karteSaveBtn" onclick="saveKarte()">保存</button>
     </div>
   </div>
 </div>
@@ -381,13 +405,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI'
   <button class="lightbox-next" id="lbNext" onclick="lbNav(1);event.stopPropagation()">›</button>
 </div>
 
-<!-- QRオーバーレイ -->
+<!-- QR -->
 <div class="qr-overlay" id="qrOverlay">
-  <div class="qr-video-wrap">
-    <video id="qrVideo" playsinline autoplay muted></video>
-  </div>
+  <video id="qrVideo" playsinline autoplay muted></video>
   <div class="qr-msg" id="qrMsg">QRコードをカメラに向けてください</div>
-  <button class="qr-close-btn" onclick="closeQR()">閉じる</button>
+  <button class="qr-close-btn" onclick="closeQR()">CLOSE</button>
 </div>
 
 <script type="module">
@@ -411,16 +433,10 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-window._db=db; window._storage=storage; window._auth=auth;
-window._ref=ref; window._uploadBytes=uploadBytes; window._getDownloadURL=getDownloadURL;
-window._deleteObject=deleteObject;
-window._updateDoc=updateDoc; window._doc=doc; window._deleteDoc=deleteDoc;
-window._addDoc=addDoc; window._collection=collection; window._serverTimestamp=serverTimestamp;
-
 let vehicles=[], currentDetailId=null, currentUserName='', editingId=null;
 let selectedFiles=[null,null], karteFiles=[], lbImages=[], lbIndex=0;
+let currentFilter='all';
 
-// ───────── 認証 ─────────
 onAuthStateChanged(auth, user=>{
   if(user){
     currentUserName=(user.email||'').split('@')[0];
@@ -446,67 +462,93 @@ window.doLogout=async()=>{
   await signOut(auth);
 };
 
-// ───────── ユーティリティ ─────────
+window.setFilter=(f,btn)=>{
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderList();
+};
+
 function toDateStr(ts){
   if(!ts)return'—';
   let d=ts.toDate?ts.toDate():new Date(ts);
   return d.getFullYear()+'/'+(d.getMonth()+1).toString().padStart(2,'0')+'/'+d.getDate().toString().padStart(2,'0');
 }
-function expClass(dateStr){
-  if(!dateStr)return'';
-  const d=new Date(dateStr), now=new Date();
-  const diff=(d-now)/(1000*60*60*24);
+function expClass(str){
+  if(!str)return'';
+  const m=str.match(/(?:令和|平成|昭和)\s*(\d+|元)\s*年\s*(\d+)\s*月\s*(\d+)\s*日/);
+  if(!m)return'';
+  const eraBase={'令和':2018,'平成':1988,'昭和':1925};
+  const eraM=str.match(/(令和|平成|昭和)/);
+  if(!eraM)return'';
+  const base=eraBase[eraM[1]];
+  const y=(m[1]==='元'?1:parseInt(m[1]))+base;
+  const d=new Date(y,parseInt(m[2])-1,parseInt(m[3]));
+  const diff=(d-new Date())/(1000*60*60*24);
   if(diff<0)return'expired';
   if(diff<60)return'soon';
   return'';
 }
 
-// ───────── データ読み込み ─────────
 async function loadVehicles(){
   const q=query(collection(db,'vehicles'),orderBy('updatedAt','desc'));
   const snap=await getDocs(q);
   vehicles=snap.docs.map(d=>({id:d.id,...d.data()}));
   renderList();
   renderSubbar();
+  renderFilterClients();
 }
 function renderSubbar(){
   const sb=document.getElementById('subbar');
   if(!vehicles.length){sb.style.display='none';return;}
   const v=vehicles[0];
   const lastKarte=v.karteList&&v.karteList.length?v.karteList[v.karteList.length-1].memo||'':'';
-  sb.textContent=`お客様名：${v.ownerName||'—'} ／ 担当：${v.staff||'—'} ／ 整備：${lastKarte.slice(0,30)||'—'}`;
+  sb.textContent=`最終更新 ▸ ${v.ownerName||'—'} ／ 依頼：${v.clientName||'—'} ／ 担当：${v.staff||'—'} ／ 整備：${lastKarte.slice(0,25)||'—'}`;
   sb.style.display='block';
+}
+function renderFilterClients(){
+  const bar=document.getElementById('filterBar');
+  bar.querySelectorAll('.dynamic-filter').forEach(b=>b.remove());
+  const clients=[...new Set(vehicles.map(v=>v.clientName).filter(Boolean))].sort();
+  clients.forEach(c=>{
+    const btn=document.createElement('button');
+    btn.className='filter-btn dynamic-filter';
+    btn.textContent=c;
+    btn.onclick=()=>setFilter('client:'+c,btn);
+    bar.appendChild(btn);
+  });
 }
 function renderList(){
   const q=(document.getElementById('searchBox').value||'').trim().toLowerCase();
   const list=document.getElementById('vehicleList');
-  const filtered=vehicles.filter(v=>{
+  let filtered=vehicles.filter(v=>{
+    if(currentFilter==='customer'&&v.category!=='customer')return false;
+    if(currentFilter==='company'&&v.category!=='company')return false;
+    if(currentFilter.startsWith('client:')&&v.clientName!==currentFilter.slice(7))return false;
     if(!q)return true;
-    return (v.plate||'').toLowerCase().includes(q)||(v.ownerName||'').toLowerCase().includes(q)||(v.staff||'').toLowerCase().includes(q);
+    return (v.plate||'').toLowerCase().includes(q)||(v.ownerName||'').toLowerCase().includes(q)||(v.clientName||'').toLowerCase().includes(q)||(v.staff||'').toLowerCase().includes(q);
   });
-  if(!filtered.length){
-    list.innerHTML=`<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">${q?'該当する車両がありません':'まだ登録されていません'}</div></div>`;
-    return;
-  }
+  if(!filtered.length){list.innerHTML=`<div class="empty-state">該当する車両がありません</div>`;return;}
   list.innerHTML=filtered.map(v=>{
-    const catBadge=v.category==='company'?`<span class="category-badge badge-company">社用車</span>`:`<span class="category-badge badge-customer">お客様</span>`;
     const ec=expClass(v.expDate);
-    const lastKarte=v.karteList&&v.karteList.length?v.karteList[v.karteList.length-1].memo||'整備記録あり':'整備記録なし';
+    const catClass=v.category==='company'?'cat-company':'cat-customer';
+    const catLabel=v.category==='company'?'社用車':'お客様';
     return `<div class="vehicle-card" onclick="openDetail('${v.id}')">
-      <div class="card-owner-name">${v.ownerName||'—'} ${catBadge}</div>
-      <div class="card-last-karte">${lastKarte.slice(0,30)}</div>
+      <div class="card-top">
+        <div>${v.clientName?`<div class="card-client">${v.clientName}</div>`:''}
+        <div class="card-owner">${v.ownerName||'—'}</div></div>
+        <span class="card-category ${catClass}">${catLabel}</span>
+      </div>
       <div class="card-plate">${v.plate||'—'}</div>
-      <div class="card-car">🚗 ${v.carName||'—'}</div>
-      ${v.staff?`<div class="card-staff-badge">👷 担当：${v.staff}</div>`:''}
+      <div class="card-car">${v.carName||'—'}</div>
       <div class="card-bottom">
-        <span class="card-exp ${ec}">車検: ${v.expDate||'—'}</span>
-        <span class="card-meta">登録: ${toDateStr(v.createdAt)}<br>更新: ${toDateStr(v.updatedAt)}</span>
+        <div><div class="card-exp ${ec}">車検: ${v.expDate||'—'}</div>${v.staff?`<div class="card-staff">担当: ${v.staff}</div>`:''}</div>
+        <div class="card-meta">登録: ${toDateStr(v.createdAt)}<br>更新: ${toDateStr(v.updatedAt)}</div>
       </div>
     </div>`;
   }).join('');
 }
 
-// ───────── 詳細 ─────────
 window.openDetail=async(id)=>{
   currentDetailId=id;
   const snap=await getDoc(doc(db,'vehicles',id));
@@ -526,16 +568,15 @@ window.openDetail=async(id)=>{
   document.getElementById('d-regdate').textContent=v.regDate||'—';
   document.getElementById('d-staff').textContent=v.staff||'—';
   document.getElementById('d-note').textContent=v.note||'—';
+  document.getElementById('d-client').textContent=v.clientName||'—';
+  document.getElementById('d-client-header').textContent=v.clientName?`依頼: ${v.clientName}`:'';
   document.getElementById('d-created').textContent=toDateStr(v.createdAt);
   document.getElementById('d-updated').textContent=toDateStr(v.updatedAt);
   document.getElementById('detailTitle').textContent=v.plate||'詳細';
   const cb=document.getElementById('d-category-badge');
-  cb.className='category-badge '+(v.category==='company'?'badge-company':'badge-customer');
+  cb.className='card-category '+(v.category==='company'?'cat-company':'cat-customer');
   cb.textContent=v.category==='company'?'社用車':'お客様';
-
-  // 車検証ファイル表示
   renderShakenFiles(v);
-  // 整備記録
   renderKarteList(v.karteList||[]);
   document.getElementById('mainApp').style.display='none';
   document.getElementById('detailScreen').style.display='block';
@@ -546,7 +587,6 @@ window.closeDetail=()=>{
   loadVehicles();
 };
 
-// 車検証ファイル表示
 function renderShakenFiles(v){
   const files=v.shakenFiles||[];
   const sec=document.getElementById('shakenFilesSection');
@@ -554,53 +594,38 @@ function renderShakenFiles(v){
   if(!files.length){sec.style.display='none';return;}
   sec.style.display='block';
   list.innerHTML=files.map((f,i)=>{
-    const isPdf=f.name&&f.name.toLowerCase().endsWith('.pdf');
-    if(isPdf){
-      return `<div class="shaken-file-wrap">
-        <a href="${f.url}" target="_blank" class="shaken-pdf-thumb">📄<span>${f.name||'PDF'}</span></a>
-        <button class="shaken-file-del" onclick="deleteShakenFile(${i})">✕</button>
-      </div>`;
-    }
-    return `<div class="shaken-file-wrap">
-      <img class="shaken-thumb" src="${f.url}" onclick="openLightboxSingle('${f.url}')" alt="${f.name||''}">
-      <button class="shaken-file-del" onclick="deleteShakenFile(${i})">✕</button>
-    </div>`;
+    const isPdf=(f.name||'').toLowerCase().endsWith('.pdf');
+    if(isPdf)return`<div class="shaken-file-wrap"><a href="${f.url}" target="_blank" class="shaken-pdf-thumb">📄<span>${f.name||'PDF'}</span></a><button class="shaken-file-del" onclick="deleteShakenFile(${i})">✕</button></div>`;
+    return`<div class="shaken-file-wrap"><img class="shaken-thumb" src="${f.url}" onclick="openLightboxSingle('${f.url}')" alt=""><button class="shaken-file-del" onclick="deleteShakenFile(${i})">✕</button></div>`;
   }).join('');
 }
-
 window.deleteShakenFile=async(idx)=>{
   if(!confirm('このファイルを削除しますか？'))return;
   const snap=await getDoc(doc(db,'vehicles',currentDetailId));
-  const v={id:snap.id,...snap.data()};
-  const files=[...(v.shakenFiles||[])];
+  const files=[...((snap.data().shakenFiles)||[])];
   const removed=files.splice(idx,1)[0];
-  try{
-    const r=ref(storage,removed.path);
-    await deleteObject(r);
-  }catch(e){}
+  try{await deleteObject(ref(storage,removed.path));}catch(e){}
   await updateDoc(doc(db,'vehicles',currentDetailId),{shakenFiles:files,updatedAt:serverTimestamp()});
   await openDetail(currentDetailId);
 };
 
-// ───────── 整備記録 ─────────
 function renderKarteList(list){
   const el=document.getElementById('karteList');
   if(!list||!list.length){el.innerHTML='<div class="karte-empty">整備記録はまだありません</div>';return;}
-  // 画像URLをライトボックス用に収集
   lbImages=[];
-  list.forEach(k=>{(k.files||[]).forEach(f=>{if(!f.name.endsWith('.pdf'))lbImages.push(f.url);});});
+  list.forEach(k=>{(k.files||[]).forEach(f=>{if(!(f.name||'').toLowerCase().endsWith('.pdf'))lbImages.push(f.url);});});
   el.innerHTML=list.map((k,i)=>{
     const filesHtml=(k.files||[]).map(f=>{
-      const isPdf=f.name.toLowerCase().endsWith('.pdf');
-      if(isPdf)return `<div class="karte-file-wrap"><a href="${f.url}" target="_blank" class="karte-pdf-thumb">📄<span>${f.name}</span></a><button class="karte-file-del" onclick="deleteKarteFile('${currentDetailId}',${i},'${f.path}')">✕</button></div>`;
-      return `<div class="karte-file-wrap"><img class="karte-thumb" src="${f.url}" onclick="openLightbox('${f.url}')"><button class="karte-file-del" onclick="deleteKarteFile('${currentDetailId}',${i},'${f.path}')">✕</button></div>`;
+      const isPdf=(f.name||'').toLowerCase().endsWith('.pdf');
+      if(isPdf)return`<div class="karte-file-wrap"><a href="${f.url}" target="_blank" class="karte-pdf-thumb">📄<span>${f.name}</span></a><button class="karte-file-del" onclick="deleteKarteFile('${currentDetailId}',${i},'${f.path}')">✕</button></div>`;
+      return`<div class="karte-file-wrap"><img class="karte-thumb" src="${f.url}" onclick="openLightbox('${f.url}')"><button class="karte-file-del" onclick="deleteKarteFile('${currentDetailId}',${i},'${f.path}')">✕</button></div>`;
     }).join('');
-    return `<div class="karte-entry">
+    return`<div class="karte-entry">
       <div class="karte-entry-header">
         <span class="karte-date">${k.date||'—'}</span>
-        <span class="karte-staff">👷 ${k.staff||'—'}</span>
+        <span class="karte-staff-name">${k.staff||'—'}</span>
         <div class="karte-entry-actions">
-          <button class="karte-edit-btn" onclick="openKarteEditModal(${i})">✏️ 編集</button>
+          <button class="karte-edit-btn" onclick="openKarteEditModal(${i})">編集</button>
           <button class="karte-del-btn" onclick="deleteKarteEntry(${i})">✕</button>
         </div>
       </div>
@@ -609,9 +634,8 @@ function renderKarteList(list){
     </div>`;
   }).join('');
 }
-
 window.openKarteModal=()=>{
-  document.getElementById('karteModalTitle').textContent='🔧 整備記録を追加';
+  document.getElementById('karteModalTitle').textContent='整備記録を追加';
   document.getElementById('km-staff').value=currentUserName;
   document.getElementById('km-memo').value='';
   document.getElementById('km-files').value='';
@@ -620,50 +644,35 @@ window.openKarteModal=()=>{
   karteFiles=[];
   document.getElementById('karteModalOverlay').classList.add('open');
 };
-window.openKarteEditModal=(idx)=>{
-  const snap=vehicles.find(v=>v.id===currentDetailId);
-  getDoc(doc(db,'vehicles',currentDetailId)).then(s=>{
-    const v=s.data();
-    const k=(v.karteList||[])[idx];
-    if(!k)return;
-    document.getElementById('karteModalTitle').textContent='🔧 整備記録を編集';
-    document.getElementById('km-staff').value=k.staff||'';
-    document.getElementById('km-memo').value=k.memo||'';
-    document.getElementById('km-files').value='';
-    document.getElementById('kmFilePreview').innerHTML='';
-    document.getElementById('karteEditIndex').value=idx;
-    karteFiles=[];
-    document.getElementById('karteModalOverlay').classList.add('open');
-  });
+window.openKarteEditModal=async(idx)=>{
+  const snap=await getDoc(doc(db,'vehicles',currentDetailId));
+  const k=(snap.data().karteList||[])[idx];
+  if(!k)return;
+  document.getElementById('karteModalTitle').textContent='整備記録を編集';
+  document.getElementById('km-staff').value=k.staff||'';
+  document.getElementById('km-memo').value=k.memo||'';
+  document.getElementById('km-files').value='';
+  document.getElementById('kmFilePreview').innerHTML='';
+  document.getElementById('karteEditIndex').value=idx;
+  karteFiles=[];
+  document.getElementById('karteModalOverlay').classList.add('open');
 };
 window.closeKarteModal=()=>document.getElementById('karteModalOverlay').classList.remove('open');
-
 document.getElementById('km-files').addEventListener('change',e=>{
   karteFiles=Array.from(e.target.files);
   const prev=document.getElementById('kmFilePreview');
   prev.innerHTML='';
   karteFiles.forEach(f=>{
-    if(f.type.startsWith('image/')){
-      const img=document.createElement('img');
-      img.className='karte-file-preview';
-      img.src=URL.createObjectURL(f);
-      prev.appendChild(img);
-    } else {
-      const d=document.createElement('div');
-      d.style='font-size:12px;color:#666;padding:4px 8px;background:#fff3e0;border-radius:6px';
-      d.textContent='📄 '+f.name;
-      prev.appendChild(d);
-    }
+    if(f.type.startsWith('image/')){const img=document.createElement('img');img.className='karte-file-preview';img.src=URL.createObjectURL(f);prev.appendChild(img);}
+    else{const d=document.createElement('div');d.style='font-size:11px;color:#2a86c8;padding:4px 8px;background:#404040;border:1px solid #585858;font-weight:700';d.textContent='📄 '+f.name;prev.appendChild(d);}
   });
 });
-
 window.saveKarte=async()=>{
   const btn=document.getElementById('karteSaveBtn');
-  btn.disabled=true; btn.textContent='保存中…';
+  btn.disabled=true;btn.textContent='保存中…';
   try{
     const snap=await getDoc(doc(db,'vehicles',currentDetailId));
-    const v=snap.data();
-    let karteList=[...(v.karteList||[])];
+    let karteList=[...(snap.data().karteList||[])];
     const editIdx=document.getElementById('karteEditIndex').value;
     const now=new Date();
     const dateStr=now.getFullYear()+'/'+(now.getMonth()+1).toString().padStart(2,'0')+'/'+now.getDate().toString().padStart(2,'0');
@@ -675,60 +684,43 @@ window.saveKarte=async()=>{
       const url=await getDownloadURL(r);
       uploadedFiles.push({name:f.name,url,path});
     }
-    const entry={
-      staff:document.getElementById('km-staff').value.trim(),
-      memo:document.getElementById('km-memo').value.trim(),
-      date:dateStr,
-      files:uploadedFiles
-    };
+    const entry={staff:document.getElementById('km-staff').value.trim(),memo:document.getElementById('km-memo').value.trim(),date:dateStr,files:uploadedFiles};
     if(editIdx!==''){
       const idx=parseInt(editIdx);
       entry.files=[...(karteList[idx].files||[]),...uploadedFiles];
       karteList[idx]={...karteList[idx],...entry};
-    } else {
-      karteList.push(entry);
-    }
+    } else {karteList.push(entry);}
     await updateDoc(doc(db,'vehicles',currentDetailId),{karteList,updatedAt:serverTimestamp()});
     closeKarteModal();
     await openDetail(currentDetailId);
-  }catch(e){ alert('保存に失敗しました: '+e.message); }
-  finally{ btn.disabled=false; btn.textContent='💾 保存'; }
+  }catch(e){alert('保存に失敗しました: '+e.message);}
+  finally{btn.disabled=false;btn.textContent='保存';}
 };
-
 window.deleteKarteEntry=async(idx)=>{
   if(!confirm('この整備記録を削除しますか？'))return;
   const snap=await getDoc(doc(db,'vehicles',currentDetailId));
-  const v=snap.data();
-  const list=[...(v.karteList||[])];
+  const list=[...(snap.data().karteList||[])];
   list.splice(idx,1);
   await updateDoc(doc(db,'vehicles',currentDetailId),{karteList:list,updatedAt:serverTimestamp()});
   await openDetail(currentDetailId);
 };
-
 window.deleteKarteFile=async(vid,karteIdx,path)=>{
   if(!confirm('このファイルを削除しますか？'))return;
   const snap=await getDoc(doc(db,'vehicles',vid));
-  const v=snap.data();
-  const list=[...(v.karteList||[])];
+  const list=[...(snap.data().karteList||[])];
   list[karteIdx].files=(list[karteIdx].files||[]).filter(f=>f.path!==path);
-  try{ await deleteObject(ref(storage,path)); }catch(e){}
+  try{await deleteObject(ref(storage,path));}catch(e){}
   await updateDoc(doc(db,'vehicles',vid),{karteList:list,updatedAt:serverTimestamp()});
   await openDetail(vid);
 };
 
-// ───────── 車両登録/編集 ─────────
 window.openModal=()=>{
-  editingId=null;
-  selectedFiles=[null,null];
-  document.getElementById('modalTitle').textContent='🚗 車検証を登録';
-  document.getElementById('saveBtn').textContent='💾 保存';
-  ['f-plate','f-car','f-model','f-shape','f-chassis','f-owner','f-exp','f-firstreg','f-regdate','f-addr','f-note'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.value='';
-  });
+  editingId=null;selectedFiles=[null,null];
+  document.getElementById('modalTitle').textContent='新規登録';
+  ['f-plate','f-car','f-model','f-shape','f-chassis','f-owner','f-exp','f-firstreg','f-regdate','f-addr','f-note','f-client'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('f-staff').value=currentUserName;
   document.getElementById('f-category').value='customer';
-  document.getElementById('ocrStatus').textContent='画像またはPDFを選択してください';
+  document.getElementById('ocrStatus').textContent='画像を選択してください';
   document.getElementById('ocrBtn').disabled=true;
   document.getElementById('preview1').style.display='none';
   document.getElementById('preview2').style.display='none';
@@ -739,9 +731,8 @@ window.openModal=()=>{
 window.openEditModal=async()=>{
   const snap=await getDoc(doc(db,'vehicles',currentDetailId));
   const v={id:snap.id,...snap.data()};
-  editingId=currentDetailId;
-  selectedFiles=[null,null];
-  document.getElementById('modalTitle').textContent='✏️ 車両情報を編集';
+  editingId=currentDetailId;selectedFiles=[null,null];
+  document.getElementById('modalTitle').textContent='車両情報を編集';
   document.getElementById('f-plate').value=v.plate||'';
   document.getElementById('f-car').value=v.carName||'';
   document.getElementById('f-model').value=v.model||'';
@@ -754,6 +745,7 @@ window.openEditModal=async()=>{
   document.getElementById('f-staff').value=v.staff||'';
   document.getElementById('f-addr').value=v.address||'';
   document.getElementById('f-note').value=v.note||'';
+  document.getElementById('f-client').value=v.clientName||'';
   document.getElementById('f-category').value=v.category||'customer';
   document.getElementById('ocrStatus').textContent='';
   document.getElementById('ocrBtn').disabled=true;
@@ -762,18 +754,14 @@ window.openEditModal=async()=>{
   document.getElementById('modalOverlay').classList.add('open');
 };
 window.closeModal=()=>document.getElementById('modalOverlay').classList.remove('open');
-
 window.saveVehicle=async()=>{
   const plate=document.getElementById('f-plate').value.trim();
-  if(!plate){alert('登録番号（ナンバー）は必須です');return;}
+  if(!plate){alert('登録番号は必須です');return;}
   const btn=document.getElementById('saveBtn');
-  btn.disabled=true; btn.textContent='保存中…';
+  btn.disabled=true;btn.textContent='保存中…';
   try{
     let shakenFiles=[];
-    if(editingId){
-      const snap=await getDoc(doc(db,'vehicles',editingId));
-      shakenFiles=[...((snap.data().shakenFiles)||[])];
-    }
+    if(editingId){const snap=await getDoc(doc(db,'vehicles',editingId));shakenFiles=[...((snap.data().shakenFiles)||[])];}
     for(let i=0;i<2;i++){
       if(selectedFiles[i]){
         const f=selectedFiles[i];
@@ -784,60 +772,31 @@ window.saveVehicle=async()=>{
         shakenFiles.push({name:f.name,url,path});
       }
     }
-    const data={
-      plate,
-      carName:document.getElementById('f-car').value.trim(),
-      model:document.getElementById('f-model').value.trim(),
-      shape:document.getElementById('f-shape').value.trim(),
-      chassis:document.getElementById('f-chassis').value.trim(),
-      ownerName:document.getElementById('f-owner').value.trim(),
-      expDate:document.getElementById('f-exp').value,
-      firstReg:document.getElementById('f-firstreg').value,
-      regDate:document.getElementById('f-regdate').value,
-      staff:document.getElementById('f-staff').value.trim(),
-      address:document.getElementById('f-addr').value.trim(),
-      note:document.getElementById('f-note').value.trim(),
-      category:document.getElementById('f-category').value,
-      shakenFiles,
-      updatedAt:serverTimestamp()
-    };
-    if(editingId){
-      await updateDoc(doc(db,'vehicles',editingId),data);
-    } else {
-      data.createdAt=serverTimestamp();
-      data.karteList=[];
-      const ref2=await addDoc(collection(db,'vehicles'),data);
-      editingId=ref2.id;
-    }
+    const data={plate,carName:document.getElementById('f-car').value.trim(),model:document.getElementById('f-model').value.trim(),shape:document.getElementById('f-shape').value.trim(),chassis:document.getElementById('f-chassis').value.trim(),ownerName:document.getElementById('f-owner').value.trim(),expDate:document.getElementById('f-exp').value.trim(),firstReg:document.getElementById('f-firstreg').value.trim(),regDate:document.getElementById('f-regdate').value.trim(),staff:document.getElementById('f-staff').value.trim(),address:document.getElementById('f-addr').value.trim(),note:document.getElementById('f-note').value.trim(),category:document.getElementById('f-category').value,clientName:document.getElementById('f-client').value.trim(),shakenFiles,updatedAt:serverTimestamp()};
+    if(editingId){await updateDoc(doc(db,'vehicles',editingId),data);}
+    else{data.createdAt=serverTimestamp();data.karteList=[];await addDoc(collection(db,'vehicles'),data);}
     closeModal();
     if(currentDetailId)await openDetail(currentDetailId);
     else await loadVehicles();
-  }catch(e){ alert('保存に失敗しました: '+e.message); }
-  finally{ btn.disabled=false; btn.textContent='💾 保存'; }
+  }catch(e){alert('保存に失敗しました: '+e.message);}
+  finally{btn.disabled=false;btn.textContent='保存';}
 };
-
 window.deleteVehicle=async()=>{
   if(!confirm('この車両を削除しますか？\nこの操作は取り消せません。'))return;
   await deleteDoc(doc(db,'vehicles',currentDetailId));
   closeDetail();
 };
 
-// ───────── OCR ─────────
 window.onFileSelect=(n)=>{
   const file=document.getElementById('ocrFile'+n).files[0];
   if(!file)return;
   selectedFiles[n-1]=file;
   const prev=document.getElementById('preview'+n);
-  if(file.type.startsWith('image/')){
-    prev.src=URL.createObjectURL(file);
-    prev.style.display='block';
-  } else {
-    prev.style.display='none';
-  }
+  if(file.type.startsWith('image/')){prev.src=URL.createObjectURL(file);prev.style.display='block';}
+  else{prev.style.display='none';}
   document.getElementById('ocrBtn').disabled=false;
   document.getElementById('ocrStatus').textContent='読み取り準備OK';
 };
-
 window.runOCR=async()=>{
   document.getElementById('ocrBtn').disabled=true;
   document.getElementById('ocrStatus').textContent='🔍 OCR読み取り中…';
@@ -845,160 +804,86 @@ window.runOCR=async()=>{
     let allText='';
     for(let i=0;i<2;i++){
       if(!selectedFiles[i])continue;
-      const f=selectedFiles[i];
-      const b64=await toBase64(f);
-      const resp=await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${VISION_KEY}`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({requests:[{image:{content:b64},features:[{type:'DOCUMENT_TEXT_DETECTION',maxResults:1}]}]})
-      });
+      const b64=await toBase64(selectedFiles[i]);
+      const resp=await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${VISION_KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({requests:[{image:{content:b64},features:[{type:'DOCUMENT_TEXT_DETECTION',maxResults:1}]}]})});
       const json=await resp.json();
-      const text=json.responses?.[0]?.fullTextAnnotation?.text||'';
-      allText+=text+'\n';
+      allText+=(json.responses?.[0]?.fullTextAnnotation?.text||'')+'\n';
     }
-    if(!allText.trim()){
-      document.getElementById('ocrStatus').textContent='⚠️ テキストを検出できませんでした';
-      return;
-    }
+    if(!allText.trim()){document.getElementById('ocrStatus').textContent='⚠️ テキストを検出できませんでした';return;}
     parseOcrText(allText);
     document.getElementById('ocrStatus').textContent='✅ 読み取り完了！内容を確認してください';
-  }catch(e){
-    document.getElementById('ocrStatus').textContent='❌ エラー: '+e.message;
-  } finally {
-    document.getElementById('ocrBtn').disabled=false;
-  }
+  }catch(e){document.getElementById('ocrStatus').textContent='❌ エラー: '+e.message;}
+  finally{document.getElementById('ocrBtn').disabled=false;}
 };
-
-function toBase64(file){
-  return new Promise((res,rej)=>{
-    const r=new FileReader();
-    r.onload=()=>res(r.result.split(',')[1]);
-    r.onerror=rej;
-    r.readAsDataURL(file);
-  });
+function toBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(file);});}
+function setVal(id,val){if(val&&document.getElementById(id)&&!document.getElementById(id).value)document.getElementById(id).value=val;}
+function seireiToWareki(y,m,d){
+  if(y>=2019||(y===2019&&m>=5))return`令和${y-2018}年${m}月${d?d+'日':''}`;
+  if(y>=1989)return`平成${y-1988}年${m}月${d?d+'日':''}`;
+  if(y>=1926)return`昭和${y-1925}年${m}月${d?d+'日':''}`;
+  return`${y}年${m}月${d?d+'日':''}`;
 }
-
-function setVal(id,val){if(val&&document.getElementById(id))document.getElementById(id).value=val;}
-
-function warekiToDate(str){
-  if(!str)return'';
-  const m=str.match(/([令平昭大明](?:和|成|正|治)?|R|H|S|T|M)(\d+|元)[.\s年](\d+)[.\s月](\d+)/);
-  if(!m)return'';
-  const eraMap={令:2018,R:2018,平:1988,H:1988,昭:1925,S:1925,大:1911,T:1911,明:1867,M:1867};
-  let base=eraMap[m[1]]||eraMap[m[1][0]];
-  if(!base)return'';
-  const y=m[2]==='元'?1:parseInt(m[2]);
-  return`${base+y}-${m[3].padStart(2,'0')}-${m[4].padStart(2,'0')}`;
-}
-function warekiToMonth(str){
-  if(!str)return'';
-  const m=str.match(/([令平昭大明](?:和|成|正|治)?|R|H|S|T|M)(\d+|元)[.\s年](\d+)/);
-  if(!m)return'';
-  const eraMap={令:2018,R:2018,平:1988,H:1988,昭:1925,S:1925,大:1911,T:1911,明:1867,M:1867};
-  let base=eraMap[m[1]]||eraMap[m[1][0]];
-  if(!base)return'';
-  const y=m[2]==='元'?1:parseInt(m[2]);
-  return`${base+y}-${m[3].padStart(2,'0')}`;
-}
-
 function parseOcrText(t){
-  // 登録番号
-  const plateM=t.match(/([札幌|仙台|大宮|千葉|練馬|多摩|八王子|品川|足立|横浜|川崎|相模|湘南|静岡|浜松|名古屋|三河|尾張|岐阜|京都|なにわ|大阪|神戸|姫路|福岡|北九州|広島|岡山|仙台|宮城|山形|福島|新潟|長野|富山|石川|福井|山梨|三重|滋賀|奈良|和歌山|鳥取|島根|山口|徳島|香川|愛媛|高知|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄|東京|大阪]+|[都道府県]\S+?)\s*(\d{3,4})\s*([あ-んア-ン一-龯])\s*(\d{1,4})/);
-  if(plateM)setVal('f-plate',plateM[0].replace(/\s/g,' '));
-
-  // 有効期限
-  const expM=t.match(/(?:有効期間の満了|満了日)[^\d令平昭]{0,10}((?:令和|平成|R|H)\s*\d+\s*年\s*\d+\s*月\s*\d+\s*日)/);
-  if(expM)setVal('f-exp',warekiToDate(expM[1]));
-
-  // 初年度登録
-  const fregM=t.match(/初年度登録[^\d令平昭]{0,5}((?:令和|平成|昭和|R|H|S)\s*\d+\s*年\s*\d+\s*月)/);
-  if(fregM)setVal('f-firstreg',warekiToMonth(fregM[1]));
-
-  // 登録年月日
-  const regM=t.match(/登録年月日[^\d令平昭]{0,5}((?:令和|平成|昭和|R|H|S)\s*\d+\s*年\s*\d+\s*月\s*\d+\s*日)/);
-  if(regM)setVal('f-regdate',warekiToDate(regM[1]));
-
-  // 車台番号
-  const chassisM=t.match(/車台番号[^\w]{0,5}([A-Z0-9]{3,6}-[A-Z0-9]{5,10})/);
+  const plateM=t.match(/(札幌|仙台|大宮|千葉|練馬|多摩|八王子|品川|足立|横浜|川崎|相模|湘南|静岡|浜松|名古屋|三河|尾張|岐阜|京都|なにわ|大阪|神戸|姫路|福岡|北九州|広島|岡山|宮城|新潟|長野|富山|石川|福井|山梨|三重|滋賀|奈良|和歌山|鳥取|島根|山口|徳島|香川|愛媛|高知|佐賀|長崎|熊本|大分|宮崎|鹿児島|沖縄)\s*\d{3,4}\s*[あ-んア-ン一-龯]\s*\d{1,4}/);
+  if(plateM)setVal('f-plate',plateM[0].replace(/\s+/g,' '));
+  const eraBase={'令和':2018,'平成':1988,'昭和':1925};
+  const expM=t.match(/(?:有効期間の満了|満了日)[^\d令平昭]{0,15}((令和|平成|昭和)\s*(\d+|元)\s*年\s*(\d+)\s*月\s*(\d+)\s*日)/);
+  if(expM){const b=eraBase[expM[2]];const y=(expM[3]==='元'?1:parseInt(expM[3]))+b;setVal('f-exp',seireiToWareki(y,parseInt(expM[4]),parseInt(expM[5])));}
+  const fregM=t.match(/初年度登録[^\d令平昭]{0,5}((令和|平成|昭和)\s*(\d+|元)\s*年\s*(\d+)\s*月)/);
+  if(fregM){const b=eraBase[fregM[2]];const y=(fregM[3]==='元'?1:parseInt(fregM[3]))+b;setVal('f-firstreg',seireiToWareki(y,parseInt(fregM[4]),null));}
+  const regM=t.match(/登録年月日[^\d令平昭]{0,5}((令和|平成|昭和)\s*(\d+|元)\s*年\s*(\d+)\s*月\s*(\d+)\s*日)/);
+  if(regM){const b=eraBase[regM[2]];const y=(regM[3]==='元'?1:parseInt(regM[3]))+b;setVal('f-regdate',seireiToWareki(y,parseInt(regM[4]),parseInt(regM[5])));}
+  const chassisM=t.match(/車台番号[^\w]{0,5}([A-Z0-9]{2,6}-[A-Z0-9]{4,10})/);
   if(chassisM)setVal('f-chassis',chassisM[1]);
-
-  // 型式
-  const modelM=t.match(/型式[^\w]{0,5}([A-Z0-9]{2,4}-[A-Z0-9]{2,6})/);
+  const modelM=t.match(/(?:^|[\s\n])型式[\s\n]{0,3}([A-Z0-9]{2,4}-[A-Z0-9]{2,6})/m);
   if(modelM)setVal('f-model',modelM[1]);
-
-  // 車名
-  const carNames=['トヨタ','日産','ホンダ','マツダ','スバル','三菱','ダイハツ','スズキ','いすゞ','日野','三菱ふそう','レクサス','BMW','ベンツ','アウディ','フォルクスワーゲン','ボルボ','ジープ','プリウス','ヴェゼル','カローラ','フィット','ノート','セレナ','エルフ','ミニキャブ','キャラバン','バネット'];
   const carNameM=t.match(/車名[\s\u3000:\uff1a]{0,3}([^\s\n]{2,10})/);
   if(carNameM)setVal('f-car',carNameM[1]);
-  else{for(const n of carNames){if(t.includes(n)){setVal('f-car',n);break;}}}
-
-  // 所有者
-  const ownerM=t.match(/(?:所有者|使用者)(?:の氏名)?[\s\u3000]{0,5}([^\s\n]{2,20})/);
-  if(ownerM)setVal('f-owner',ownerM[1]);
-
-  // 住所
+  else{for(const n of['トヨタ','日産','ホンダ','マツダ','スバル','三菱','ダイハツ','スズキ','いすゞ','日野','ミニキャブ','キャラバン','ハイエース','プリウス','ヴェゼル','カローラ','フィット','ノート','セレナ']){if(t.includes(n)){setVal('f-car',n);break;}}}
+  const ownerM=t.match(/(?:所有者|使用者)(?:の氏名)?[\s\u3000]{0,5}([^\s\n]{2,30})/);
+  if(ownerM)setVal('f-owner',ownerM[1].trim());
   const addrM=t.match(/(?:所有者の住所|使用の本拠の位置)[\s\u3000]{0,5}([^\n]{6,50})/);
   if(addrM)setVal('f-addr',addrM[1].trim());
 }
 
-// ───────── QR ─────────
 let qrStream=null;
 window.openQR=async()=>{
   document.getElementById('qrOverlay').classList.add('open');
   try{
     qrStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
-    const video=document.getElementById('qrVideo');
-    video.srcObject=qrStream;
+    document.getElementById('qrVideo').srcObject=qrStream;
     if('BarcodeDetector' in window){
       const det=new BarcodeDetector({formats:['qr_code']});
-      const scan=async()=>{
-        if(!qrStream)return;
-        try{const codes=await det.detect(video);if(codes.length){closeQR();parseQrData(codes[0].rawValue);return;}}catch(e){}
-        requestAnimationFrame(scan);
-      };
-      video.addEventListener('playing',()=>requestAnimationFrame(scan),{once:true});
-    } else {
-      document.getElementById('qrMsg').textContent='このブラウザはQR読み取りに未対応です（Chromeをご利用ください）';
-    }
-  }catch(e){document.getElementById('qrMsg').textContent='カメラにアクセスできませんでした: '+e.message;}
+      const scan=async()=>{if(!qrStream)return;try{const codes=await det.detect(document.getElementById('qrVideo'));if(codes.length){closeQR();parseQrData(codes[0].rawValue);return;}}catch(e){}requestAnimationFrame(scan);};
+      document.getElementById('qrVideo').addEventListener('playing',()=>requestAnimationFrame(scan),{once:true});
+    }else{document.getElementById('qrMsg').textContent='このブラウザはQR未対応です';}
+  }catch(e){document.getElementById('qrMsg').textContent='カメラにアクセスできませんでした';}
 };
-window.closeQR=()=>{
-  if(qrStream){qrStream.getTracks().forEach(t=>t.stop());qrStream=null;}
-  document.getElementById('qrOverlay').classList.remove('open');
-};
+window.closeQR=()=>{if(qrStream){qrStream.getTracks().forEach(t=>t.stop());qrStream=null;}document.getElementById('qrOverlay').classList.remove('open');};
 function parseQrData(text){
   document.getElementById('ocrStatus').textContent='✅ QRコード読み取り成功！';
   const p=text.split(/[,\n\t]/);
-  setVal('f-plate',p[0]||text);
-  setVal('f-chassis',p[1]||'');
-  setVal('f-exp',p[2]||'');
-  setVal('f-owner',p[3]||'');
+  if(p[0]&&!document.getElementById('f-plate').value)document.getElementById('f-plate').value=p[0];
+  if(p[1]&&!document.getElementById('f-chassis').value)document.getElementById('f-chassis').value=p[1];
+  if(p[3]&&!document.getElementById('f-owner').value)document.getElementById('f-owner').value=p[3];
 }
 
-// ───────── ライトボックス ─────────
 window.openLightbox=(url)=>{
-  lbIndex=lbImages.indexOf(url);
-  if(lbIndex<0){lbIndex=0;lbImages=[url];}
+  lbIndex=lbImages.indexOf(url);if(lbIndex<0){lbIndex=0;lbImages=[url];}
   document.getElementById('lightboxImg').src=lbImages[lbIndex];
-  document.getElementById('lbPrev').style.display=lbImages.length>1?'':'none';
-  document.getElementById('lbNext').style.display=lbImages.length>1?'':'none';
+  document.getElementById('lbPrev').style.display=lbImages.length>1?'flex':'none';
+  document.getElementById('lbNext').style.display=lbImages.length>1?'flex':'none';
   document.getElementById('lightboxWrap').classList.add('open');
 };
 window.openLightboxSingle=(url)=>{
-  lbImages=[url]; lbIndex=0;
+  lbImages=[url];lbIndex=0;
   document.getElementById('lightboxImg').src=url;
   document.getElementById('lbPrev').style.display='none';
   document.getElementById('lbNext').style.display='none';
   document.getElementById('lightboxWrap').classList.add('open');
 };
-window.closeLightbox=(e)=>{
-  if(!e||e.target===document.getElementById('lightboxWrap'))
-    document.getElementById('lightboxWrap').classList.remove('open');
-};
-window.lbNav=(dir)=>{
-  lbIndex=(lbIndex+dir+lbImages.length)%lbImages.length;
-  document.getElementById('lightboxImg').src=lbImages[lbIndex];
-};
+window.closeLightbox=(e)=>{if(!e||e.target===document.getElementById('lightboxWrap'))document.getElementById('lightboxWrap').classList.remove('open');};
+window.lbNav=(dir)=>{lbIndex=(lbIndex+dir+lbImages.length)%lbImages.length;document.getElementById('lightboxImg').src=lbImages[lbIndex];};
 </script>
 </body>
 </html>
