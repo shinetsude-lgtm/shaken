@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>車検証管理 — 信越電装</title>
+<meta name="theme-color" content="#2a86c8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic UI',sans-serif;background:#c8cdd4;color:#1a1a1a;font-size:15px}
+.app{max-width:680px;margin:0 auto;min-height:100vh;background:#c8cdd4}
+
+/* ログイン */
+.login-screen{max-width:400px;margin:0 auto;padding:80px 24px 32px}
+.login-logo{text-align:center;margin-bottom:40px}
+.login-logo img{height:80px;object-fit:contain;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto}
+.login-logo-text{font-size:22px;font-weight:800;color:#2a86c8;letter-spacing:2px}
+.login-sub{font-size:12px;color:#aaa;margin-top:6px;letter-spacing:1px}
+.login-card{background:#fff;border:1px solid #ddd;padding:32px 24px}
+.login-label{font-size:11px;color:#555;margin-bottom:6px;display:block;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.login-input{width:100%;padding:10px 12px;background:#f8f8f8;border:1px solid #ddd;color:#1a1a1a;font-size:14px;margin-bottom:16px;outline:none}
+.login-input:focus{border-color:#2a86c8;background:#fff}
+.login-btn{width:100%;padding:12px;background:#2a86c8;color:#fff;border:none;font-size:14px;font-weight:700;cursor:pointer}
+.login-btn:hover{background:#1a6ea8}
+.login-error{color:#e53935;font-size:12px;margin-top:8px;text-align:center}
+
+/* ヘッダー */
+.header{background:#fff;border-bottom:3px solid #2a86c8;padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:52px;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.header-title{font-size:15px;font-weight:800;color:#2a86c8;letter-spacing:2px}
+.header-user{font-size:12px;color:#555;display:flex;align-items:center;gap:8px}
+.logout-btn{background:#2a86c8;border:none;color:#fff;font-size:11px;padding:5px 12px;cursor:pointer;font-weight:700}
+.logout-btn:hover{background:#1a6ea8}
+
+/* 一覧 */
+.list-header{padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #ddd;background:#fff}
+.search-box{flex:1;padding:8px 12px;background:#f8f8f8;border:1px solid #ddd;color:#1a1a1a;font-size:13px;outline:none}
+.search-box:focus{border-color:#2a86c8;background:#fff}
+.add-btn{background:#2a86c8;color:#fff;border:none;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.add-btn:hover{background:#1a6ea8}
+.vehicle-list{padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.empty-state{text-align:center;padding:60px 24px;color:#aaa;font-size:14px}
+.list-count{font-size:11px;color:#666;padding:6px 16px;background:#fff;border-bottom:1px solid #ddd}
+
+/* カード */
+.vehicle-card{background:#fff;border:1px solid #ddd;border-left:4px solid #2a86c8;padding:14px 16px;cursor:pointer;transition:all .15s}
+.vehicle-card:hover{box-shadow:0 3px 10px rgba(0,0,0,.2)}
+.card-plate{font-size:20px;font-weight:900;color:#1a1a1a;letter-spacing:2px;margin-bottom:8px}
+.card-row{display:flex;align-items:baseline;gap:6px;margin-bottom:3px}
+.card-label{font-size:10px;color:#888;font-weight:700;min-width:48px}
+.card-val{font-size:13px;color:#1a1a1a}
+.card-pdf-badge{display:inline-block;margin-top:8px;padding:3px 10px;background:#e3f2fd;color:#1565c0;border:1px solid #90caf9;font-size:11px;font-weight:700}
+
+/* 詳細 */
+.detail-screen{display:none;background:#c8cdd4;min-height:100vh}
+.detail-header{background:#fff;border-bottom:3px solid #2a86c8;padding:0 16px;height:52px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.back-btn{background:none;border:none;color:#2a86c8;font-size:20px;cursor:pointer;padding:4px;font-weight:700}
+.detail-title{font-size:14px;font-weight:800;flex:1;color:#2a86c8}
+.detail-body{padding:16px}
+.detail-plate{font-size:28px;font-weight:900;letter-spacing:3px;margin-bottom:12px}
+.info-section{background:#fff;border:1px solid #ddd;border-top:3px solid #2a86c8;padding:14px 16px;margin-bottom:12px}
+.section-title{font-size:10px;font-weight:800;color:#2a86c8;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid #f5f5f5}
+.info-row:last-child{border-bottom:none}
+.info-key{font-size:11px;color:#888;font-weight:700;width:100px}
+.info-val{font-size:13px;color:#1a1a1a;text-align:right;word-break:break-all}
+.action-btns{display:flex;gap:8px;margin-bottom:12px}
+.edit-btn{flex:1;padding:10px;background:#2a86c8;color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer}
+.edit-btn:hover{background:#1a6ea8}
+.delete-btn{padding:10px 16px;background:#fff;color:#e53935;border:2px solid #e53935;font-size:13px;font-weight:700;cursor:pointer}
+.delete-btn:hover{background:#e53935;color:#fff}
+
+/* PDF表示 */
+.pdf-section{background:#fff;border:1px solid #ddd;border-top:3px solid #2a86c8;padding:14px;margin-bottom:12px}
+.pdf-frame{width:100%;height:500px;border:1px solid #ddd;background:#f0f0f0}
+.pdf-open-btn{display:block;width:100%;padding:10px;background:#e3f2fd;color:#1565c0;border:1px solid #90caf9;font-size:13px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;margin-top:8px}
+.pdf-open-btn:hover{background:#bbdefb}
+
+/* モーダル */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;overflow-y:auto;padding:20px 0}
+.modal-overlay.open{display:block}
+.modal{background:#fff;border-top:4px solid #2a86c8;max-width:480px;margin:0 auto;padding:20px 16px}
+.modal-title{font-size:14px;font-weight:800;margin-bottom:16px;color:#2a86c8;letter-spacing:1px}
+.form-field{display:flex;flex-direction:column;margin-bottom:12px}
+.form-label{font-size:10px;color:#888;margin-bottom:4px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.form-input{padding:9px 10px;background:#f8f8f8;border:1px solid #ddd;color:#1a1a1a;font-size:13px;outline:none}
+.form-input:focus{border-color:#2a86c8;background:#fff}
+.modal-actions{display:flex;gap:8px;margin-top:16px}
+.modal-cancel{flex:1;padding:10px;background:#fff;border:2px solid #ddd;color:#555;font-size:13px;font-weight:700;cursor:pointer}
+.modal-cancel:hover{border-color:#888}
+.modal-save{flex:2;padding:10px;background:#2a86c8;color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer}
+.modal-save:hover{background:#1a6ea8}
+.modal-save:disabled{background:#ccc;cursor:not-allowed}
+
+/* PDFアップロード */
+.upload-area{border:2px dashed #90caf9;padding:20px;text-align:center;cursor:pointer;background:#f8fbff;position:relative;transition:all .2s}
+.upload-area:hover{border-color:#2a86c8;background:#e3f2fd}
+.upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-area-text{font-size:13px;color:#555}
+.upload-area-sub{font-size:11px;color:#aaa;margin-top:4px}
+.current-pdf{font-size:12px;color:#2a86c8;margin-top:8px;padding:6px 10px;background:#e3f2fd;border:1px solid #90caf9}
+.progress-bar{height:4px;background:#e0e0e0;margin-top:8px;border-radius:2px;display:none}
+.progress-fill{height:100%;background:#2a86c8;border-radius:2px;transition:width .3s;width:0}
+.pdf-preview-box{margin-top:8px;border:1px solid #ddd;background:#f5f5f5;display:none}
+.pdf-preview-box canvas{width:100%;display:block}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ログイン -->
+<div id="loginScreen">
+  <div class="login-screen">
+    <div class="login-logo">
+      <img src="会社ロゴ.png" alt="SHIN-ETSU.D" onerror="this.style.display='none'">
+      <div class="login-logo-text">車検証管理システム</div>
+      <div class="login-sub">SHIN-ETSU DENSO</div>
+    </div>
+    <div class="login-card">
+      <label class="login-label">Email</label>
+      <input class="login-input" type="email" id="loginEmail" placeholder="example@email.com">
+      <label class="login-label">Password</label>
+      <input class="login-input" type="password" id="loginPass" onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="login-btn" onclick="doLogin()">LOGIN</button>
+      <div class="login-error" id="loginError"></div>
+    </div>
+  </div>
+</div>
+
+<!-- メイン -->
+<div id="mainApp" style="display:none">
+  <div class="header">
+    <div class="header-title">車検証管理</div>
+    <div class="header-user">
+      <span id="headerUserName"></span>
+      <button class="logout-btn" onclick="doLogout()">LOGOUT</button>
+    </div>
+  </div>
+  <div class="list-header">
+    <input class="search-box" id="searchBox" placeholder="車番・所有者・依頼者で検索" oninput="renderList()" onkeyup="renderList()">
+    <button class="add-btn" onclick="openCsvModal()" style="background:#fff;color:#2a86c8;border:2px solid #2a86c8;margin-right:4px">CSV</button>
+    <button class="add-btn" onclick="openModal()">＋ 新規登録</button>
+  </div>
+  <div class="list-count" id="listCount"></div>
+  <div class="vehicle-list" id="vehicleList"></div>
+</div>
+
+<!-- 詳細 -->
+<div class="detail-screen" id="detailScreen">
+  <div class="detail-header">
+    <button class="back-btn" onclick="closeDetail()">←</button>
+    <div class="detail-title" id="detailTitle">詳細</div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-plate" id="d-plate"></div>
+    <div class="action-btns">
+      <button class="edit-btn" onclick="openEditModal()">✏️ 編集</button>
+      <button class="delete-btn" onclick="deleteVehicle()">削除</button>
+    </div>
+    <div class="info-section">
+      <div class="section-title">基本情報</div>
+      <div class="info-row"><div class="info-key">所有者</div><div class="info-val" id="d-owner"></div></div>
+      <div class="info-row"><div class="info-key">依頼者</div><div class="info-val" id="d-client"></div></div>
+      <div class="info-row"><div class="info-key">備考</div><div class="info-val" id="d-note"></div></div>
+    </div>
+    <div class="pdf-section" id="pdfSection" style="display:none">
+      <div class="section-title">📄 車検証PDF</div>
+      <iframe class="pdf-frame" id="pdfFrame" src=""></iframe>
+      <a class="pdf-open-btn" id="pdfOpenBtn" href="" target="_blank">🔗 新しいタブで開く</a>
+    </div>
+  </div>
+</div>
+
+<!-- CSVインポートモーダル -->
+<div class="modal-overlay" id="csvModalOverlay">
+  <div class="modal">
+    <div class="modal-title">📥 CSV一括インポート</div>
+    <p style="font-size:12px;color:#666;margin-bottom:12px;line-height:1.7">
+      CSVファイルの1行目は以下の順番にしてください：<br>
+      <strong>車番, 所有者, 依頼者, 登録日, 備考</strong><br>
+      ※PDFは後から各車両に追加できます
+    </p>
+    <a id="csvTemplateLink" href="#" onclick="downloadCsvTemplate();return false;" style="font-size:12px;color:#2a86c8;display:block;margin-bottom:12px">📄 テンプレートをダウンロード</a>
+    <div class="upload-area" id="csvUploadArea" style="margin-bottom:12px">
+      <input type="file" id="csvFile" accept=".csv" onchange="onCsvSelect()">
+      <div class="upload-area-text">📋 CSVファイルをここにドロップ</div>
+      <div class="upload-area-sub">またはクリックして選択</div>
+    </div>
+    <div id="csvPreview" style="display:none;margin-bottom:12px;font-size:12px;background:#f8f8f8;border:1px solid #ddd;padding:10px;border-radius:4px;max-height:150px;overflow-y:auto"></div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeCsvModal()">キャンセル</button>
+      <button class="modal-save" id="csvImportBtn" onclick="importCsv()" disabled>インポート実行</button>
+    </div>
+    <div id="csvLog" style="display:none;margin-top:12px;font-size:12px;background:#f8f8f8;border:1px solid #ddd;padding:10px;border-radius:4px;max-height:150px;overflow-y:auto;line-height:1.9"></div>
+  </div>
+</div>
+
+<!-- 登録/編集モーダル -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">新規登録</div>
+    <div class="form-field">
+      <label class="form-label">車両番号（ナンバー）*</label>
+      <input class="form-input" id="f-plate" placeholder="品川 800 あ 1234">
+    </div>
+    <div class="form-field">
+      <label class="form-label">所有者</label>
+      <input class="form-input" id="f-owner" placeholder="株式会社 ○○">
+    </div>
+    <div class="form-field">
+      <label class="form-label">依頼者（取引先）</label>
+      <input class="form-input" id="f-client" placeholder="○○商事">
+    </div>
+    <div class="form-field">
+      <label class="form-label">備考</label>
+      <input class="form-input" id="f-note" placeholder="メモ">
+    </div>
+    <div class="form-field">
+      <label class="form-label">車検証PDF</label>
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="pdfFile" accept="application/pdf" onchange="onPdfSelect()">
+        <div class="upload-area-text">📄 PDFをここにドロップ</div>
+        <div class="upload-area-sub">またはクリックして選択</div>
+      </div>
+      <div class="current-pdf" id="currentPdf" style="display:none"></div>
+      <a id="pdfPreviewLink" href="#" target="_blank" style="display:none;font-size:12px;color:#1565c0;padding:6px 10px;background:#e3f2fd;border:1px solid #90caf9;text-align:center;margin-top:4px">🔍 PDFを大きく表示（新しいタブ）</a>
+      <div class="pdf-preview-box" id="pdfPreviewBox"><canvas id="pdfPreviewCanvas"></canvas></div>
+      <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">キャンセル</button>
+      <button class="modal-save" id="saveBtn" onclick="saveVehicle()">保存</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+if(typeof pdfjsLib !== 'undefined') pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, orderBy, serverTimestamp, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA1_dl6bbWXfkMQA7saeWuRfC1trLyF7qU",
+  authDomain: "shin-shaken.firebaseapp.com",
+  projectId: "shin-shaken",
+  storageBucket: "shin-shaken.firebasestorage.app",
+  messagingSenderId: "470235150868",
+  appId: "1:470235150868:web:a6f66e377d63453c56c501"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+let vehicles = [], currentDetailId = null, editingId = null, selectedPdf = null, existingPdfUrl = null, existingPdfPath = null;
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    document.getElementById('headerUserName').textContent = (user.email||'').split('@')[0];
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    loadVehicles();
+  } else {
+    document.getElementById('loginScreen').style.display = 'block';
+    document.getElementById('mainApp').style.display = 'none';
+    document.getElementById('detailScreen').style.display = 'none';
+  }
+});
+
+window.doLogin = async () => {
+  document.getElementById('loginError').textContent = '';
+  try {
+    await signInWithEmailAndPassword(auth,
+      document.getElementById('loginEmail').value.trim(),
+      document.getElementById('loginPass').value);
+  } catch(e) {
+    document.getElementById('loginError').textContent = 'ログインできませんでした。';
+  }
+};
+window.doLogout = async () => {
+  if (!confirm('ログアウトしますか？')) return;
+  await signOut(auth);
+};
+
+async function loadVehicles() {
+  try {
+    const snap = await getDocs(collection(db,'vehicles'));
+    vehicles = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    // updatedAtがある場合は新しい順に並べる
+    vehicles.sort((a,b) => {
+      const ta = a.updatedAt?.seconds || a.createdAt?.seconds || 0;
+      const tb = b.updatedAt?.seconds || b.createdAt?.seconds || 0;
+      return tb - ta;
+    });
+    renderList();
+  } catch(e) {
+    console.error('loadVehicles error:', e);
+    document.getElementById('vehicleList').innerHTML = '<div class="empty-state">データの読み込みに失敗しました。再読み込みしてください。</div>';
+  }
+}
+
+function normalize(s){ return (s||'').toLowerCase().replace(/\s+/g,''); }
+window.renderList = renderList;
+function renderList() {
+  const q = normalize(document.getElementById('searchBox').value||'');
+  const filtered = vehicles.filter(v => {
+    if (!q) return true;
+    // 全フィールドを検索（フィールド名が異なっていても対応）
+    return Object.values(v).some(val =>
+      typeof val === 'string' && normalize(val).includes(q)
+    );
+  });
+  document.getElementById('listCount').textContent = `${filtered.length} 件`;
+  const list = document.getElementById('vehicleList');
+  if (!filtered.length) { list.innerHTML = '<div class="empty-state">該当する車両がありません</div>'; return; }
+  list.innerHTML = filtered.map(v => `
+    <div class="vehicle-card" onclick="openDetail('${v.id}')">
+      <div class="card-plate">${v.plate||'—'}</div>
+      <div class="card-row"><span class="card-label">所有者</span><span class="card-val">${v.ownerName||'—'}</span></div>
+      <div class="card-row"><span class="card-label">依頼者</span><span class="card-val">${v.clientName||'—'}</span></div>
+      ${v.pdfUrl ? '<span class="card-pdf-badge">📄 PDF あり</span>' : ''}
+    </div>
+  `).join('');
+}
+
+window.openDetail = async (id) => {
+  currentDetailId = id;
+  const snap = await getDoc(doc(db,'vehicles',id));
+  if (!snap.exists()) return;
+  const v = {id:snap.id, ...snap.data()};
+  document.getElementById('d-plate').textContent = v.plate||'—';
+  document.getElementById('d-owner').textContent = v.ownerName||'—';
+  document.getElementById('d-client').textContent = v.clientName||'—';
+  document.getElementById('d-note').textContent = v.note||'—';
+  document.getElementById('detailTitle').textContent = v.plate||'詳細';
+
+  // PDF表示
+  const pdfSec = document.getElementById('pdfSection');
+  if (v.pdfUrl) {
+    pdfSec.style.display = 'block';
+    document.getElementById('pdfFrame').src = v.pdfUrl;
+    document.getElementById('pdfOpenBtn').href = v.pdfUrl;
+  } else {
+    pdfSec.style.display = 'none';
+    document.getElementById('pdfFrame').src = '';
+  }
+
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('detailScreen').style.display = 'block';
+  history.pushState({view:'detail', id}, '', '');
+};
+window.closeDetail = () => {
+  document.getElementById('detailScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+  document.getElementById('pdfFrame').src = '';
+  loadVehicles();
+};
+
+// CSVインポート
+let csvRows = [];
+window.openCsvModal = () => {
+  csvRows = [];
+  document.getElementById('csvFile').value = '';
+  document.getElementById('csvUploadArea').querySelector('.upload-area-text').textContent = '📋 CSVファイルをここにドロップ';
+  document.getElementById('csvPreview').style.display = 'none';
+  document.getElementById('csvLog').style.display = 'none';
+  document.getElementById('csvImportBtn').disabled = true;
+  document.getElementById('csvModalOverlay').classList.add('open');
+};
+window.closeCsvModal = () => document.getElementById('csvModalOverlay').classList.remove('open');
+
+window.downloadCsvTemplate = () => {
+  const bom = '﻿';
+  const content = bom + '車番,所有者,依頼者,備考\n';
+  const blob = new Blob([content], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '車検証インポートテンプレート.csv';
+  a.click();
+};
+
+window.onCsvSelect = () => {
+  const file = document.getElementById('csvFile').files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    let text = e.target.result;
+    // BOM除去
+    if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+    const lines = text.split(/\r?\n/).filter(l => l.trim());
+    // 1行目はヘッダー
+    csvRows = lines.slice(1).map(line => {
+      const cols = line.split(',');
+      return {
+        plate: (cols[0]||'').trim(),
+        ownerName: (cols[1]||'').trim(),
+        clientName: (cols[2]||'').trim(),
+        note: (cols[3]||'').trim(),
+      };
+    }).filter(r => r.plate);
+    document.getElementById('csvUploadArea').querySelector('.upload-area-text').textContent = `✅ ${file.name}`;
+    const preview = document.getElementById('csvPreview');
+    preview.style.display = 'block';
+    preview.innerHTML = `<strong>${csvRows.length}件を読み込みました</strong><br>` +
+      csvRows.map(r => `・${r.plate}　${r.ownerName}`).join('<br>');
+    document.getElementById('csvImportBtn').disabled = csvRows.length === 0;
+  };
+  reader.readAsText(file, 'UTF-8');
+};
+
+window.importCsv = async () => {
+  if (!csvRows.length) return;
+  const btn = document.getElementById('csvImportBtn');
+  btn.disabled = true; btn.textContent = 'インポート中…';
+  const log = document.getElementById('csvLog');
+  log.style.display = 'block'; log.innerHTML = '';
+  let ok = 0, ng = 0;
+  for (const row of csvRows) {
+    try {
+      await addDoc(collection(db,'vehicles'), {
+        ...row,
+        pdfUrl: '', pdfPath: '',
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+      log.innerHTML += `<span style="color:#2e7d32">✅ ${row.plate}</span><br>`;
+      ok++;
+    } catch(e) {
+      log.innerHTML += `<span style="color:#c62828">❌ ${row.plate}: ${e.message}</span><br>`;
+      ng++;
+    }
+    log.scrollTop = log.scrollHeight;
+  }
+  log.innerHTML += `<br><strong>完了：${ok}件成功、${ng}件失敗</strong>`;
+  btn.textContent = '完了';
+  await loadVehicles();
+};
+
+// ブラウザの「戻る」ボタン対応
+window.addEventListener('popstate', () => {
+  if (document.getElementById('detailScreen').style.display !== 'none') {
+    document.getElementById('detailScreen').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    document.getElementById('pdfFrame').src = '';
+    loadVehicles();
+  }
+});
+
+window.openModal = () => {
+  editingId = null; selectedPdf = null; existingPdfUrl = null; existingPdfPath = null;
+  document.getElementById('modalTitle').textContent = '新規登録';
+  ['f-plate','f-owner','f-client','f-note'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('pdfFile').value = '';
+  document.getElementById('currentPdf').style.display = 'none';
+  document.getElementById('uploadArea').querySelector('.upload-area-text').textContent = '📄 PDFをここにドロップ';
+  document.getElementById('modalOverlay').classList.add('open');
+};
+window.openEditModal = async () => {
+  const snap = await getDoc(doc(db,'vehicles',currentDetailId));
+  const v = {id:snap.id, ...snap.data()};
+  editingId = currentDetailId;
+  selectedPdf = null;
+  existingPdfUrl = v.pdfUrl||null;
+  existingPdfPath = v.pdfPath||null;
+  document.getElementById('modalTitle').textContent = '車両情報を編集';
+  document.getElementById('f-plate').value = v.plate||'';
+  document.getElementById('f-owner').value = v.ownerName||'';
+  document.getElementById('f-client').value = v.clientName||'';
+  document.getElementById('f-note').value = v.note||'';
+  document.getElementById('pdfFile').value = '';
+  if (existingPdfUrl) {
+    document.getElementById('currentPdf').textContent = '📄 現在のPDF: 登録済み（変更する場合は新しいファイルを選択）';
+    document.getElementById('currentPdf').style.display = 'block';
+  } else {
+    document.getElementById('currentPdf').style.display = 'none';
+  }
+  document.getElementById('uploadArea').querySelector('.upload-area-text').textContent = '📄 PDFをここにドロップ';
+  document.getElementById('modalOverlay').classList.add('open');
+};
+window.closeModal = () => document.getElementById('modalOverlay').classList.remove('open');
+
+window.onPdfSelect = () => {
+  const file = document.getElementById('pdfFile').files[0];
+  if (!file) return;
+  selectedPdf = file;
+  document.getElementById('uploadArea').querySelector('.upload-area-text').textContent = '✅ ' + file.name;
+  // 新しいタブで開くリンク
+  const previewLink = document.getElementById('pdfPreviewLink');
+  previewLink.href = URL.createObjectURL(file);
+  previewLink.style.display = 'block';
+  // PDFプレビュー表示
+  const previewBox = document.getElementById('pdfPreviewBox');
+  const canvas = document.getElementById('pdfPreviewCanvas');
+  const url = URL.createObjectURL(file);
+  if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+      pdf.getPage(1).then(page => {
+        const viewport = page.getViewport({scale: 1.0});
+        const ctx = canvas.getContext('2d');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        page.render({canvasContext: ctx, viewport}).promise.then(() => {
+          previewBox.style.display = 'block';
+          URL.revokeObjectURL(url);
+        });
+      });
+    }).catch(() => { previewBox.style.display = 'none'; });
+  }
+};
+
+window.saveVehicle = async () => {
+  const plate = document.getElementById('f-plate').value.trim();
+  if (!plate) { alert('車両番号は必須です'); return; }
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true; btn.textContent = '保存中…';
+  try {
+    let pdfUrl = existingPdfUrl||'';
+    let pdfPath = existingPdfPath||'';
+
+    if (selectedPdf) {
+      // プログレスバー表示
+      document.getElementById('progressBar').style.display = 'block';
+      const safePlate = plate.replace(/\s+/g,'_');
+      const path = `shaken/${safePlate}.pdf`;
+      const storageRef = ref(storage, path);
+      await new Promise((resolve, reject) => {
+        const task = uploadBytesResumable(storageRef, selectedPdf);
+        task.on('state_changed',
+          snap => {
+            const pct = (snap.bytesTransferred / snap.totalBytes) * 100;
+            document.getElementById('progressFill').style.width = pct + '%';
+          },
+          reject,
+          async () => { pdfUrl = await getDownloadURL(storageRef); pdfPath = path; resolve(); }
+        );
+      });
+      document.getElementById('progressBar').style.display = 'none';
+    }
+
+    const data = {
+      plate,
+      ownerName: document.getElementById('f-owner').value.trim(),
+      clientName: document.getElementById('f-client').value.trim(),
+      note: document.getElementById('f-note').value.trim(),
+      pdfUrl,
+      pdfPath,
+      updatedAt: serverTimestamp()
+    };
+
+    if (editingId) {
+      await updateDoc(doc(db,'vehicles',editingId), data);
+    } else {
+      data.createdAt = serverTimestamp();
+      await addDoc(collection(db,'vehicles'), data);
+    }
+    closeModal();
+    if (currentDetailId) await openDetail(currentDetailId);
+    else await loadVehicles();
+  } catch(e) {
+    alert('保存に失敗しました: ' + e.message);
+    document.getElementById('progressBar').style.display = 'none';
+  } finally {
+    btn.disabled = false; btn.textContent = '保存';
+  }
+};
+
+window.deleteVehicle = async () => {
+  if (!confirm('この車両を削除しますか？\nこの操作は取り消せません。')) return;
+  const snap = await getDoc(doc(db,'vehicles',currentDetailId));
+  const v = snap.data();
+  if (v.pdfPath) {
+    try { await deleteObject(ref(storage, v.pdfPath)); } catch(e) {}
+  }
+  await deleteDoc(doc(db,'vehicles',currentDetailId));
+  closeDetail();
+};
+</script>
+</body>
+</html>
