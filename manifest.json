@@ -1,0 +1,15 @@
+{
+  "name": "車検証管理 — 信越電装",
+  "short_name": "車検証管理",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#c8cdd4",
+  "theme_color": "#2a86c8",
+  "icons": [
+    {
+      "src": "会社ロゴ.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
